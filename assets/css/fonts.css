@@ -1,0 +1,34 @@
+/* Signal Fold type system — self-hosted, no external font requests.
+   Each family below is served as a single variable-weight woff2 (Google's
+   own CSS2 API returns the identical file for every requested static weight
+   in these three families — verified by diffing the URLs), so one
+   @font-face per style covers its whole weight range rather than repeating
+   the same file under several fixed-weight rules. */
+@font-face {
+  font-family: 'Fraunces';
+  src: url('../fonts/fraunces-var.woff2') format('woff2');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Fraunces';
+  src: url('../fonts/fraunces-italic-var.woff2') format('woff2');
+  font-weight: 300 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Outfit';
+  src: url('../fonts/outfit-var.woff2') format('woff2');
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../fonts/jetbrains-mono-var.woff2') format('woff2');
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
