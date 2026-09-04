@@ -510,10 +510,17 @@ p{color:var(--ink);}
 }
 
 /* ===== Generic content page (page.php fallback) ===== */
+/* page.php is shared by actual prose pages and by every /demo/* page that
+   just embeds a plugin shortcode (grid, flipbook, list...) — a blanket
+   max-width:72ch on .entry itself capped ALL of those to a narrow reading
+   column regardless of the Customizer's Container Width, since 72ch (~800px)
+   is narrower than the container on anything but a small viewport. Scoped
+   down to just the text elements that actually want a readable line length;
+   the container itself, and whatever a shortcode renders, now use the full
+   configured container width like every other section. */
 .content-page{padding-block:var(--sp-2xl);}
-.content-page .entry{max-width:72ch;margin-inline:auto;}
 .content-page .entry h1{margin-bottom:var(--sp-lg);}
-.content-page .entry p{margin-bottom:var(--sp-md);}
+.content-page .entry > p{max-width:72ch;margin-bottom:var(--sp-md);}
 
 /* ===== Motion ===== */
 @keyframes float{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
