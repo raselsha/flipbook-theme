@@ -9,7 +9,7 @@ function flipbook_theme_setup() {
     add_theme_support( 'editor-styles' );
     add_theme_support( 'responsive-embeds' );
     add_theme_support( 'automatic-feed-links' );
-    add_editor_style( 'assets/css/main.css' );
+    add_editor_style( array( 'assets/css/fonts.css', 'assets/css/editor-style.css' ) );
 }
 add_action( 'after_setup_theme', 'flipbook_theme_setup' );
 

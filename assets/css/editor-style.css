@@ -1,0 +1,29 @@
+/* Typography-only preview for the block/classic editor — deliberately NOT
+   main.css. add_editor_style() targets the editor's own iframe <body>, and
+   main.css's body{background:var(--bg); ...} rule turned that into the
+   editor's actual background/text color, not just a content preview.
+   Pulled in only what previews well: fonts, headings, paragraph color,
+   links — none of main.css's page-chrome rules (which don't mean anything
+   inside a small text area anyway). */
+:root{
+  --ink:#1a1410;
+  --accent:#c8620a;
+  --font-display:'Fraunces', Georgia, serif;
+  --font-body:'Outfit', system-ui, sans-serif;
+}
+
+body{
+  font-family: var(--font-body);
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6{
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+em{ color: var(--accent); font-style: italic; }
+a{ color: var(--accent); }
