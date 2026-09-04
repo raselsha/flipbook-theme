@@ -477,9 +477,21 @@ p{color:var(--ink);}
 .live-demo-dot--yellow{background:#ffbd2e;}
 .live-demo-dot--green{background:#27c93f;}
 .live-demo-caption{margin-left:8px;font-family:var(--font-mono);font-size:0.78rem;color:rgba(255,255,255,0.4);}
-.live-demo-body{padding:28px;}
+/* Tighter than the original 28px all around, and less at the bottom than
+   the top specifically — the plugin's own toolbar bar already sits right
+   above that edge, so a big bottom pad on top of that read as a lot of
+   empty room under the toolbar with comparatively little above the book. */
+.live-demo-body{padding:14px 14px 8px;}
+/* Bumps the book's own reserved aspect-ratio height (see
+   .pdfev-3dbook-container in pdf-embed-viewer's frontend.css) specifically
+   inside this narrower ~920px showcase card, so the book gets real top/
+   bottom breathing room here without changing the plugin's site-wide
+   default. !important: equal specificity to the plugin's own rule, and
+   enqueue order between a theme stylesheet and a plugin stylesheet isn't
+   guaranteed. */
+.live-demo-body .pdfev-3dbook-container{padding-top:min(75%, 85vh) !important;}
 @media (max-width:640px){
-  .live-demo-body{padding:14px;}
+  .live-demo-body{padding:10px 10px 6px;}
   .live-demo-titlebar{padding:12px 14px;}
   .live-demo-caption{display:none;}
 }
