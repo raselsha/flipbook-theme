@@ -1,18 +1,33 @@
 /* ===== Signal Fold — design tokens ===== */
 :root{
-  --bg:#F4F5F1;
-  --surface:#FFFFFF;
-  --ink:#14171A;
-  --accent:#2F5CFF;
-  --accent-ink:#FFFFFF;
-  --muted:#6B7178;
-  --line:#E3E4DE;
-  --shadow-tint: 47,92,255;
-  --font-display:'Clash Display', system-ui, sans-serif;
-  --font-body:'General Sans', system-ui, sans-serif;
+  --bg:#faf7f2;
+  --surface:#fff8f0;
+  --surface-alt:#f3ede3;
+  --ink:#1a1410;
+  --ink-rgb: 26,20,16;
+  --accent:#c8620a;
+  --accent-light:#e07a1a;
+  --accent-rgb: 200,98,10;
+  --accent-ink:#faf7f2;
+  --muted:#8c7b6a;
+  --line: rgba(26,20,16,0.1);
+  --font-display:'Fraunces', Georgia, serif;
+  --font-body:'Outfit', system-ui, sans-serif;
+  --font-mono:'JetBrains Mono', monospace;
   --sp-sm:8px; --sp-md:16px; --sp-lg:32px; --sp-xl:64px; --sp-2xl:112px;
-  --r-sm:8px; --r-md:16px; --r-pill:999px;
+  --r-sm:3px; --r-md:6px; --r-pill:999px;
   --container: 1180px;
+  --wp-admin-bar-h: 0px;
+}
+
+/* Logged-in visitors get WP's own admin bar fixed at the very top of the
+   viewport — `top:0` on our sticky header then competes with it for the
+   same y:0, so the header sticks underneath/behind it instead of below it.
+   WP's admin bar is 32px, dropping to 46px under its own 782px breakpoint —
+   match that exactly rather than guessing a single offset. */
+body.admin-bar{ --wp-admin-bar-h: 32px; }
+@media screen and (max-width:782px){
+  body.admin-bar{ --wp-admin-bar-h: 46px; }
 }
 
 /* ===== Reset (UA defaults only, via :where so component rules always win) ===== */
@@ -24,6 +39,7 @@
 :where(a){color:inherit;text-decoration:none;}
 :where(button,input,textarea,select){font:inherit;color:inherit;}
 :where(h1,h2,h3,h4,h5,h6){font:inherit;}
+:where(button){background:none;border:0;cursor:pointer;}
 
 html{background:var(--bg);}
 body{
@@ -32,7 +48,7 @@ body{
   font-family:var(--font-body);
   font-weight:400;
   font-size:17px;
-  line-height:1.55;
+  line-height:1.6;
   -webkit-font-smoothing:antialiased;
 }
 
@@ -42,111 +58,121 @@ body{
 h1,h2,h3,.h1,.h2,.h3{
   font-family:var(--font-display);
   font-weight:700;
-  line-height:1.05;
+  line-height:1.04;
   letter-spacing:-0.01em;
 }
-h1,.h1{font-size:clamp(2.6rem,5vw + 1rem,4.6rem); line-height:1.03;}
-h2,.h2{font-size:clamp(1.9rem,2.6vw + 1rem,2.8rem);}
-h3,.h3{font-size:clamp(1.2rem,1vw + 1rem,1.5rem);}
+h1,.h1{font-size:clamp(2.6rem,5vw + 1rem,4.4rem); font-weight:900; line-height:0.98;}
+h2,.h2{font-size:clamp(1.9rem,2.6vw + 1rem,2.8rem); font-weight:700;}
+h3,.h3{font-size:clamp(1.15rem,1vw + 1rem,1.4rem); font-weight:700;}
+em,.accent-italic{font-style:italic;color:var(--accent);}
 p{color:var(--ink);}
-.lede{font-size:1.2rem;line-height:1.5;color:var(--ink);max-width:46ch;}
-.muted{color:var(--muted);}
+.lede{font-size:1.15rem;line-height:1.55;color:rgba(var(--ink-rgb),0.6);max-width:46ch;}
+.muted{color:rgba(var(--ink-rgb),0.5);}
 .eyebrow{
-  font-family:var(--font-body);
-  font-weight:600;
-  font-size:0.8rem;
-  letter-spacing:0.06em;
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-mono);
+  font-weight:500;
+  font-size:0.78rem;
+  letter-spacing:0.12em;
   text-transform:uppercase;
-  color:var(--accent);
+  color:rgba(var(--accent-rgb),0.75);
 }
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none;}
 
 /* ===== Buttons ===== */
 .btn{
   display:inline-flex;align-items:center;gap:8px;
-  font-family:var(--font-body);font-weight:500;font-size:1rem;
-  padding:14px 28px;border-radius:var(--r-pill);
+  font-family:var(--font-body);font-weight:600;font-size:1rem;
+  padding:14px 26px;border-radius:var(--r-sm);
   border:1px solid transparent;
-  transition:transform .15s ease, background-color .15s ease, border-color .15s ease;
+  transition:transform .15s ease, background-color .15s ease, border-color .15s ease, filter .15s ease;
   white-space:nowrap;
 }
 .btn:hover{transform:translateY(-1px);}
 .btn--primary{background:var(--accent);color:var(--accent-ink);}
-.btn--primary:hover{background:#2549d6;}
-.btn--ghost{background:transparent;color:var(--ink);border-color:var(--line);}
-.btn--ghost:hover{border-color:var(--ink);}
+.btn--primary:hover{filter:brightness(1.06);}
+.btn--ghost{background:transparent;color:rgba(var(--ink-rgb),0.7);border-color:rgba(var(--ink-rgb),0.16);font-weight:500;}
+.btn--ghost:hover{border-color:var(--ink);color:var(--ink);}
+.btn--dark{background:transparent;color:rgba(250,247,242,0.65);border-color:rgba(250,247,242,0.16);font-weight:500;}
+.btn--dark:hover{border-color:rgba(250,247,242,0.5);color:var(--bg);}
 .btn-row{display:flex;gap:var(--sp-md);flex-wrap:wrap;align-items:center;}
 
 /* ===== Header ===== */
+/* backdrop-filter (like transform/filter/perspective) makes an element the
+   containing block for any position:fixed descendant — the mobile full-
+   screen nav is exactly that (a fixed child of .site-header), so with the
+   blur living here directly it was being sized against the 76px-tall header
+   box instead of the viewport, collapsing to a thin strip instead of
+   covering the screen. Move the blur to a ::before behind the header's own
+   content instead, so .site-header itself stays filter-free. */
 .site-header{
-  position:sticky;top:0;z-index:40;
-  background:rgba(244,245,241,0.88);
-  backdrop-filter:saturate(160%) blur(10px);
+  position:sticky;top:var(--wp-admin-bar-h);z-index:40;
   border-bottom:1px solid var(--line);
+}
+.site-header::before{
+  content:'';
+  position:absolute;inset:0;
+  background:rgba(250,247,242,0.9);
+  backdrop-filter:saturate(160%) blur(10px);
+  z-index:-1;
 }
 .site-header .u-container{
   display:flex;align-items:center;justify-content:space-between;
   height:76px;
 }
-.brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;font-size:1.15rem;color:var(--ink);}
-.brand-mark{width:26px;height:26px;flex:none;}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;font-style:italic;font-size:1.2rem;color:var(--ink);}
+.brand-mark{width:24px;height:24px;flex:none;}
 .brand-mark .fold{fill:var(--accent);}
 .brand-mark .page{fill:var(--ink);}
 
 .primary-nav{display:flex;align-items:center;gap:var(--sp-lg);}
-.primary-nav a:not(.btn){font-weight:500;font-size:0.98rem;color:var(--ink);}
-.primary-nav a:not(.btn):hover{color:var(--accent);}
+.primary-nav a:not(.btn){font-weight:500;font-size:0.95rem;color:rgba(var(--ink-rgb),0.6);transition:color .15s ease;}
+.primary-nav a:not(.btn):hover{color:var(--ink);}
 .nav-links{display:flex;align-items:center;gap:var(--sp-lg);}
 .nav-toggle{display:none;}
 
-/* The "Demo" nav item's dropdown. Its caret <svg> shipped with a viewBox
-   but no width/height and no fill/stroke — an SVG with no intrinsic size
-   falls back to the spec default of 300x150px, and its open chevron <path>
-   (meant to be stroked, not filled) got the SVG default fill:black, which
-   closes and fills the V shape solid. Together that's a huge black
-   triangle instead of a small arrow — this section is what was missing
-   entirely, not a tweak to something already there. */
 .nav-has-sub{position:relative;}
-.nav-has-sub>a{display:inline-flex;align-items:center;gap:5px;}
-.nav-caret{width:9px;height:6px;flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .15s ease;}
-.nav-has-sub:hover .nav-caret,
-.nav-has-sub:focus-within .nav-caret{transform:rotate(180deg);}
-
+.nav-has-sub > a{display:inline-flex;align-items:center;gap:5px;}
+.nav-caret{width:9px;height:9px;flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .15s ease;}
+.nav-has-sub:hover .nav-caret{transform:rotate(180deg);}
 .nav-submenu{
-  position:absolute;top:100%;left:0;margin-top:10px;
-  min-width:160px;padding:8px;
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);
-  box-shadow:0 20px 40px -18px rgba(var(--shadow-tint),0.3);
-  display:flex;flex-direction:column;gap:2px;
-  opacity:0;visibility:hidden;transform:translateY(-6px);
-  transition:opacity .15s ease, transform .15s ease, visibility .15s;
-  z-index:20;
+  position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;min-width:160px;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);
+  padding:6px;box-shadow:0 16px 40px -14px rgba(var(--ink-rgb),0.2);
+  opacity:0;visibility:hidden;transform-origin:top center;
+  transition:opacity .15s ease, visibility .15s ease;
+  z-index:30;
 }
 .nav-has-sub:hover .nav-submenu,
-.nav-has-sub:focus-within .nav-submenu{opacity:1;visibility:visible;transform:translateY(0);}
-.nav-submenu a{padding:8px 10px;border-radius:8px;font-size:0.92rem;}
-.nav-submenu a:hover{background:var(--bg);}
+.nav-has-sub:focus-within .nav-submenu{opacity:1;visibility:visible;}
+.nav-submenu a{padding:8px 12px;border-radius:6px;font-size:0.9rem !important;font-weight:500 !important;}
+.nav-submenu a:hover{background:var(--surface-alt);color:var(--ink);}
 
-@media (max-width:820px){
-  .nav-caret{display:none;}
-  .nav-submenu{
-    position:static;margin-top:8px;margin-left:var(--sp-md);
-    opacity:1;visibility:visible;transform:none;
-    border:0;box-shadow:none;padding:0;background:transparent;
-  }
-}
-
-@media (max-width:820px){
+@media (max-width:900px){
   .nav-links{
-    position:fixed;inset:76px 0 0 0;
+    position:fixed;top:calc(76px + var(--wp-admin-bar-h));right:0;bottom:0;left:0;
     background:var(--bg);
     flex-direction:column;
-    align-items:flex-start;
+    align-items:center;
+    justify-content:center;
     padding:var(--sp-lg);
     gap:var(--sp-lg);
     transform:translateY(-8px);
     opacity:0;pointer-events:none;
     transition:opacity .2s ease, transform .2s ease;
   }
+  .nav-links a:not(.btn){font-family:var(--font-display);font-weight:700;font-size:1.3rem;color:var(--ink);}
+  /* No hover on touch — the submenu is just always open, laid out inline
+     under "Demo" rather than as a floating panel. */
+  .nav-has-sub{display:flex;flex-direction:column;align-items:center;gap:var(--sp-sm);}
+  .nav-submenu{
+    position:static;transform:none;opacity:1;visibility:visible;
+    flex-direction:row;flex-wrap:wrap;justify-content:center;
+    background:none;border:0;box-shadow:none;padding:0;gap:4px;
+  }
+  .nav-submenu a{font-family:var(--font-body) !important;font-weight:500 !important;font-size:0.95rem !important;color:rgba(var(--ink-rgb),0.5) !important;}
+  .nav-caret{display:none;}
   .nav-toggle{
     display:inline-flex;align-items:center;justify-content:center;
     width:40px;height:40px;border-radius:var(--r-pill);border:1px solid var(--line);
@@ -159,102 +185,289 @@ p{color:var(--ink);}
   .nav-toggle span::after{position:absolute;top:6px;}
   .site-header.is-open .nav-links{opacity:1;pointer-events:auto;transform:translateY(0);}
 }
-@media (min-width:821px){ .nav-toggle{display:none;} }
+@media (min-width:901px){ .nav-toggle{display:none;} }
 
 /* ===== Hero ===== */
-.hero{padding-block:var(--sp-2xl) var(--sp-xl);overflow:clip;}
+.hero{position:relative;padding-block:var(--sp-2xl) var(--sp-xl);overflow:clip;}
+.hero-grid-bg{
+  position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(rgba(var(--accent-rgb),0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--accent-rgb),0.05) 1px, transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 70% 60% at 50% 20%, #000 40%, transparent 100%);
+}
+.hero-glow{
+  position:absolute;top:8%;right:8%;width:420px;height:420px;border-radius:50%;
+  background:rgba(var(--accent-rgb),0.1);filter:blur(70px);pointer-events:none;z-index:0;
+}
 .hero .u-container{
-  /* Wider than the sitewide --container (1180px), just for this row: the
-     live plugin demo is the whole point of the hero, and at the sitewide
-     width it renders at ~590px, cramped enough that its own thumbnail/TOC
-     sidebar (a fixed-feeling minimum width by design, so it stays legible)
-     ends up eating half the available room. Scoped to .hero .u-container
-     alone so every other section keeps the sitewide 1180px unchanged. */
-  max-width:1400px;
-  display:grid;grid-template-columns:0.92fr 1.18fr;gap:var(--sp-xl);align-items:center;
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:2.92fr 1.18fr;gap:var(--sp-xl);align-items:center;
 }
 @media (max-width:960px){ .hero .u-container{grid-template-columns:1fr;} }
 .hero h1{margin-bottom:var(--sp-md);}
-.hero h1 em{font-style:normal;color:var(--accent);}
+/* The base h1 clamp(2.6rem, 5vw + 1rem, 4.4rem) floors at 2.6rem for any
+   viewport under ~512px — it can't shrink further, so a heavy display serif
+   wraps into one or two words a line and reads as squeezed rather than
+   sized for the screen. Give narrow widths their own, lower-floored range. */
+@media (max-width:520px){
+  .hero h1{font-size:clamp(1.9rem, 8.5vw, 2.5rem);}
+}
 .hero .lede{margin-bottom:var(--sp-lg);}
+.hero-checks{display:flex;flex-wrap:wrap;gap:var(--sp-lg);margin-top:var(--sp-lg);font-size:0.92rem;color:rgba(var(--ink-rgb),0.45);}
+.hero-checks span{display:flex;align-items:center;gap:6px;}
+.hero-checks .tick{color:var(--accent);}
 
-.hero-demo{position:relative;}
-.hero-demo::before{
+.hero-demo{max-width:440px;margin-inline:auto;}
+.hero-demo-visual{position:relative;animation:float 5s ease-in-out infinite;}
+@media (prefers-reduced-motion:reduce){ .hero-demo-visual{animation:none;} }
+.hero-demo-visual::before{
   content:'';
   position:absolute;
-  inset:-10% -14%;
-  background:radial-gradient(closest-side, rgba(var(--shadow-tint),0.20), rgba(var(--shadow-tint),0) 70%);
+  inset:-16% -10% -22%;
+  background:radial-gradient(closest-side, rgba(var(--accent-rgb),0.14), rgba(var(--accent-rgb),0) 72%);
   z-index:-1;
 }
-.hero-demo-frame{
-  background:var(--surface);
-  border-radius:var(--r-md);
-  padding:0;
-  overflow:hidden;
-  box-shadow:0 40px 80px -30px rgba(var(--shadow-tint),0.38), 0 14px 34px -14px rgba(var(--shadow-tint),0.24);
+.hero-demo-label{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-bottom:14px;
+  font-family:var(--font-mono);
+  font-size:0.76rem;font-weight:500;color:rgba(var(--ink-rgb),0.4);
 }
-.hero-demo-bar{
-  display:flex;align-items:center;gap:8px;
-  padding:14px 20px;
-  border-bottom:1px solid var(--line);
-  font-size:0.82rem;font-weight:500;color:var(--muted);
-}
-.hero-demo-bar .dot{
-  width:8px;height:8px;border-radius:50%;
+.hero-demo-label .dot{
+  width:7px;height:7px;border-radius:50%;
   background:var(--accent);
   flex:none;
 }
-.html-has-js .hero-demo-bar .dot{animation:pulse 2.2s ease-in-out infinite;}
+.html-has-js .hero-demo-label .dot{animation:pulse 2.2s ease-in-out infinite;}
 @keyframes pulse{
   0%,100%{opacity:1;transform:scale(1);}
   50%{opacity:.45;transform:scale(.78);}
 }
-.hero-demo-viewer{padding:20px;}
-.hero-demo-frame .pdfev-embed-viewer,
-.hero-demo-frame iframe{border-radius:10px;overflow:hidden;}
+/* A decorative, CSS-only book preview — not the real plugin viewer. The
+   homepage no longer embeds a live shortcode at all (every real demo moved
+   to its own /demo/ page, so the plugin's own asset-loading check can find
+   it), so this card is a lightweight stand-in that links out to the real
+   thing rather than paying for a widget just to look busy. */
+.hero-mock-book{
+  display:flex;
+  background:var(--surface);
+  border-radius:var(--r-md);
+  overflow:hidden;
+  box-shadow:0 40px 80px -30px rgba(var(--ink-rgb),0.22), 0 14px 34px -14px rgba(var(--ink-rgb),0.14);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.hero-mock-book:hover{
+  transform:translateY(-2px);
+  box-shadow:0 48px 90px -28px rgba(var(--ink-rgb),0.26), 0 18px 38px -14px rgba(var(--ink-rgb),0.16);
+}
+.hero-mock-page{width:50%;padding:22px;}
+.hero-mock-page--left{
+  background:var(--surface-alt);
+  border-right:1px solid var(--line);
+  display:flex;
+  align-items:flex-end;
+}
+.hero-mock-brand{font-family:var(--font-mono);font-size:0.72rem;color:rgba(var(--accent-rgb),0.6);}
+.hero-mock-page--right{background:var(--bg);}
+.hero-mock-tag{font-family:var(--font-mono);font-size:0.72rem;color:rgba(var(--accent-rgb),0.6);margin-bottom:10px;}
+.hero-mock-rule{width:22px;height:2px;background:var(--accent);margin-bottom:10px;}
+.hero-mock-title{font-family:var(--font-display);font-weight:700;font-size:1.05rem;color:var(--ink);}
+.hero-mock-sub{font-size:0.78rem;color:rgba(var(--ink-rgb),0.4);margin-top:6px;margin-bottom:18px;}
+.hero-mock-lines{display:flex;flex-direction:column;gap:6px;margin-bottom:20px;}
+.hero-mock-lines span{display:block;height:2px;border-radius:1px;background:rgba(var(--ink-rgb),0.1);}
+.hero-mock-cta{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:0.72rem;color:var(--accent);}
+
+/* Float clear of the card on both axes so nothing can ever overlap it,
+   regardless of how tall the real embedded viewer renders. */
+.hero-badge{
+  position:absolute;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--r-sm);
+  padding:10px 14px;
+  font-size:0.8rem;
+  box-shadow:0 14px 30px -14px rgba(var(--ink-rgb),0.24);
+  z-index:2;
+}
+.hero-badge .num{font-family:var(--font-mono);color:var(--accent);}
+.hero-badge .lbl{color:rgba(var(--ink-rgb),0.5);}
+/* left:100% / right:100% floats the badge's near edge flush with the card's
+   far edge, then margin opens the gap — a percentage offset on right/left
+   (e.g. right:-15%) only pushes the edge that far past the card, so most of
+   a badge wider than that offset still overlapped the card underneath it. */
+.hero-badge--top{top:10%;left:100%;margin-left:14px;}
+.hero-badge--bottom{bottom:12%;right:100%;margin-right:14px;}
+
+/* Below this there's no longer room beside the card for either badge to
+   float clear of it — drop out of absolute positioning and lay them out
+   below the card instead, where they can never overlap it. */
+@media (max-width:640px){
+  .hero-demo-visual{display:flex;flex-direction:column;align-items:center;gap:14px;}
+  .hero-badge{position:static;top:auto;left:auto;right:auto;bottom:auto;margin:0;}
+  .hero-badge-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+}
+
+/* ===== Logo bar ===== */
+.logo-bar{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface-alt);padding-block:var(--sp-lg);}
+.logo-bar-label{text-align:center;font-family:var(--font-mono);font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(var(--ink-rgb),0.35);margin-bottom:var(--sp-md);}
+.logo-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:var(--sp-lg);opacity:0.5;}
+.logo-row span{font-family:var(--font-display);font-weight:700;font-size:0.95rem;white-space:nowrap;}
 
 /* ===== Sections ===== */
-.section{padding-block:var(--sp-2xl);border-top:1px solid var(--line);}
-.section-head{max-width:56ch;margin-bottom:var(--sp-xl);}
+.section{padding-block:var(--sp-2xl);}
+.section-head{max-width:60ch;margin-bottom:var(--sp-xl);}
+.section-head.centered{max-width:56ch;margin-inline:auto;text-align:center;}
 .section-head h2{margin-top:8px;}
+.section-split{display:flex;flex-direction:column;md-flex-direction:row;gap:var(--sp-lg);justify-content:space-between;align-items:flex-end;margin-bottom:var(--sp-xl);}
+@media (min-width:768px){ .section-split{flex-direction:row;} }
+.section-split p{max-width:32ch;font-size:0.95rem;color:rgba(var(--ink-rgb),0.5);}
 
-/* ===== Formats: two contrasting live demos ===== */
-.format-stack{display:flex;flex-direction:column;gap:var(--sp-2xl);}
-.format-block-head{max-width:60ch;margin-bottom:var(--sp-md);}
-.format-block-head h3{margin-bottom:2px;}
-.format-block-head p{color:var(--muted);}
-.format-demo{
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);
+/* ===== Features grid ===== */
+.feature-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:var(--r-sm);overflow:hidden;
+}
+@media (max-width:900px){ .feature-grid{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:600px){ .feature-grid{grid-template-columns:1fr;} }
+.feature-card{background:var(--bg);padding:var(--sp-lg);transition:background-color .2s ease;}
+.feature-card:hover{background:var(--surface);}
+.feature-icon{font-size:1.6rem;color:var(--accent);margin-bottom:var(--sp-md);display:inline-block;transition:transform .2s ease;}
+.feature-card:hover .feature-icon{transform:scale(1.1);}
+.feature-card h3{margin-bottom:8px;}
+.feature-card p{font-size:0.92rem;line-height:1.5;color:rgba(var(--ink-rgb),0.5);}
+
+/* =============================================== format demo link cards == */
+.format-link-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-md);
+}
+@media (max-width:900px){ .format-link-grid{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:600px){ .format-link-grid{grid-template-columns:1fr;} }
+.format-link-card{
+  display:block;
+  background:var(--bg);
+  border:1px solid var(--line);
+  border-radius:var(--r-sm);
   padding:var(--sp-lg);
-  width:100%;
+  transition:border-color .2s ease, background-color .2s ease, transform .2s ease;
 }
-.format-note{margin-top:var(--sp-lg);color:var(--muted);font-size:0.98rem;}
-.format-note a{color:var(--accent);font-weight:500;}
-
-
-/* ===== CTA band ===== */
-.cta-band{
-  background:var(--ink);color:var(--bg);
-  border-radius:var(--r-md);
-  padding:var(--sp-xl) var(--sp-lg);
-  display:flex;align-items:center;justify-content:space-between;gap:var(--sp-lg);flex-wrap:wrap;
+.format-link-card:hover{
+  background:var(--surface);
+  border-color:rgba(var(--accent-rgb),0.3);
+  transform:translateY(-2px);
 }
-.cta-band h2{color:var(--bg);}
-.cta-band .muted{color:#9aa0a8;}
-.cta-band .btn--ghost{color:var(--bg);border-color:#3a3d42;}
-.cta-band .btn--ghost:hover{border-color:var(--bg);}
+.format-link-card h3{margin-bottom:8px;}
+.format-link-card p{font-size:0.92rem;line-height:1.5;color:rgba(var(--ink-rgb),0.5);margin-bottom:var(--sp-md);}
+.format-link-cta{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:0.78rem;font-weight:500;color:var(--accent);}
+
+/* ===== Full-width image break ===== */
+.image-break{position:relative;height:22rem;overflow:hidden;}
+.image-break img{width:100%;height:100%;object-fit:cover;}
+.image-break::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to right, rgba(250,247,242,0.95) 0%, rgba(250,247,242,0.25) 50%, rgba(250,247,242,0.95) 100%);
+}
+.image-break-caption{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:1;text-align:center;
+  font-family:var(--font-display);font-weight:900;font-style:italic;
+  font-size:clamp(1.7rem,4vw,3rem);color:var(--ink);padding-inline:var(--sp-md);
+}
+
+/* ===== How it works ===== */
+.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-lg);}
+@media (max-width:820px){ .how-steps{grid-template-columns:1fr;} }
+.how-step{position:relative;}
+.how-step-num{font-family:var(--font-mono);font-size:2.4rem;font-weight:600;color:rgba(var(--accent-rgb),0.2);margin-bottom:var(--sp-md);}
+.how-step-rule{width:32px;height:2px;background:var(--accent);margin-bottom:var(--sp-md);}
+.how-step h3{margin-bottom:10px;}
+.how-step p{font-size:0.94rem;color:rgba(var(--ink-rgb),0.5);}
+
+.code-demo{margin-top:var(--sp-xl);border-radius:var(--r-sm);overflow:hidden;border:1px solid var(--line);}
+.code-demo-bar{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--surface-alt);border-bottom:1px solid var(--line);}
+.code-demo-bar .dot{width:11px;height:11px;border-radius:50%;background:rgba(var(--ink-rgb),0.12);}
+.code-demo-bar .lbl{margin-left:10px;font-family:var(--font-mono);font-size:0.76rem;color:rgba(var(--ink-rgb),0.35);}
+.code-demo-body{padding:22px 20px;background:var(--bg);}
+.code-demo code{font-family:var(--font-mono);font-size:0.92rem;display:block;white-space:pre-wrap;word-break:break-word;line-height:1.7;}
+.code-demo .cm{color:rgba(var(--ink-rgb),0.35);}
+.code-demo .tag{color:var(--accent);}
+.code-demo .attr{color:#2563eb;}
+.code-demo .val{color:#16a34a;}
+.code-demo .eq{color:rgba(var(--ink-rgb),0.5);}
+
+/* ===== Testimonials ===== */
+.testimonial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-md);}
+@media (max-width:900px){ .testimonial-grid{grid-template-columns:1fr;} }
+.testimonial-card{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);
+  padding:var(--sp-lg);display:flex;flex-direction:column;justify-content:space-between;gap:var(--sp-lg);
+  transition:border-color .2s ease;
+}
+.testimonial-card:hover{border-color:rgba(var(--accent-rgb),0.3);}
+.testimonial-mark{font-family:var(--font-display);font-style:italic;font-size:1.8rem;color:var(--accent);margin-bottom:var(--sp-sm);line-height:1;}
+.testimonial-card p{font-style:italic;font-size:0.94rem;line-height:1.55;color:rgba(var(--ink-rgb),0.7);}
+.testimonial-person{display:flex;align-items:center;gap:12px;}
+.testimonial-avatar{
+  width:36px;height:36px;border-radius:50%;flex:none;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--surface-alt);color:var(--accent);
+  font-family:var(--font-mono);font-size:0.72rem;font-weight:600;
+}
+.testimonial-person strong{display:block;font-size:0.92rem;font-weight:600;}
+.testimonial-person span{display:block;font-size:0.78rem;color:rgba(var(--ink-rgb),0.4);}
+
+/* ===== Pricing ===== */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-md);}
+@media (max-width:900px){ .pricing-grid{grid-template-columns:1fr;} }
+.price-card{
+  position:relative;background:var(--bg);border:1px solid var(--line);border-radius:var(--r-sm);
+  padding:var(--sp-lg);
+}
+.price-card--highlight{background:var(--surface);border-color:rgba(var(--accent-rgb),0.3);}
+.price-badge{
+  position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+  font-family:var(--font-mono);font-size:0.72rem;font-weight:500;
+  padding:5px 12px;border-radius:var(--r-pill);
+  background:var(--accent);color:var(--accent-ink);white-space:nowrap;
+}
+.price-name{font-family:var(--font-mono);font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(var(--accent-rgb),0.7);margin-bottom:var(--sp-sm);}
+.price-value{display:flex;align-items:baseline;gap:4px;margin-bottom:var(--sp-sm);}
+.price-value strong{font-family:var(--font-display);font-weight:900;font-size:2.2rem;}
+.price-value span{font-size:0.9rem;color:rgba(var(--ink-rgb),0.4);}
+.price-desc{font-size:0.86rem;line-height:1.5;color:rgba(var(--ink-rgb),0.45);margin-bottom:var(--sp-lg);}
+.price-features{display:flex;flex-direction:column;gap:10px;margin-bottom:var(--sp-lg);}
+.price-features li{display:flex;align-items:center;gap:10px;font-size:0.92rem;}
+.price-features .tick{color:var(--accent);font-size:0.8rem;flex:none;}
+.price-cta{display:block;text-align:center;font-size:0.92rem;font-weight:600;padding:12px;border-radius:var(--r-sm);}
+.price-cta--primary{background:var(--accent);color:var(--accent-ink);}
+.price-cta--outline{border:1px solid rgba(var(--ink-rgb),0.16);color:var(--ink);}
+.pricing-note{text-align:center;margin-top:var(--sp-xl);font-size:0.85rem;color:rgba(var(--ink-rgb),0.4);}
+
+/* ===== CTA band (dark, full width) ===== */
+.cta-dark{position:relative;background:var(--ink);color:var(--bg);padding-block:var(--sp-2xl);overflow:clip;text-align:center;}
+.cta-dark-grid{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(var(--accent-rgb),0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(var(--accent-rgb),0.06) 1px, transparent 1px);
+  background-size:60px 60px;
+}
+.cta-dark-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 55% 50% at 50% 45%, rgba(var(--accent-rgb),0.14), transparent);}
+.cta-dark .u-container{position:relative;z-index:1;max-width:760px;}
+.cta-dark h2{color:var(--bg);margin-bottom:var(--sp-md);}
+.cta-dark .lede{color:rgba(250,247,242,0.5);margin-inline:auto;margin-bottom:var(--sp-xl);}
+.cta-dark .btn-row{justify-content:center;}
+.cta-dark-note{margin-top:var(--sp-lg);font-family:var(--font-mono);font-size:0.78rem;color:rgba(250,247,242,0.3);}
 
 /* ===== Footer ===== */
 .site-footer{border-top:1px solid var(--line);padding-block:var(--sp-xl) var(--sp-lg);}
 .footer-top{display:flex;justify-content:space-between;gap:var(--sp-xl);flex-wrap:wrap;margin-bottom:var(--sp-xl);}
 .footer-cols{display:flex;gap:var(--sp-2xl);flex-wrap:wrap;}
-.footer-col h4{font-size:0.85rem;font-weight:600;color:var(--muted);margin-bottom:var(--sp-sm);text-transform:uppercase;letter-spacing:0.04em;}
-.footer-col a{display:block;padding-block:4px;color:var(--ink);}
-.footer-col a:hover{color:var(--accent);}
+.footer-col h4{font-family:var(--font-mono);font-size:0.72rem;font-weight:500;color:rgba(var(--accent-rgb),0.6);margin-bottom:var(--sp-sm);text-transform:uppercase;letter-spacing:0.1em;}
+.footer-col a{display:block;padding-block:4px;color:rgba(var(--ink-rgb),0.5);font-size:0.92rem;transition:color .15s ease;}
+.footer-col a:hover{color:var(--ink);}
 .footer-bottom{
   display:flex;justify-content:space-between;gap:var(--sp-md);flex-wrap:wrap;
   border-top:1px solid var(--line);padding-top:var(--sp-lg);
-  color:var(--muted);font-size:0.92rem;
+  font-family:var(--font-mono);color:rgba(var(--ink-rgb),0.32);font-size:0.78rem;
 }
 
 /* ===== Generic content page (page.php fallback) ===== */
@@ -263,11 +476,17 @@ p{color:var(--ink);}
 .content-page .entry h1{margin-bottom:var(--sp-lg);}
 .content-page .entry p{margin-bottom:var(--sp-md);}
 
+/* ===== Motion ===== */
+@keyframes float{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
+@keyframes fadeUp{ from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+.animate-fade-up{animation:fadeUp .7s ease forwards;}
+
 /* ===== Reveal-on-scroll (degrades to visible; JS adds .js class to html) ===== */
 .html-has-js .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;}
 .html-has-js .reveal.is-visible{opacity:1;transform:translateY(0);}
 @media (prefers-reduced-motion:reduce){
   .html-has-js .reveal{opacity:1;transform:none;transition:none;}
   .html-has-js .hero-demo-bar .dot{animation:none;}
+  .hero-demo{animation:none;}
   html{scroll-behavior:auto;}
 }
