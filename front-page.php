@@ -89,7 +89,7 @@ $demo_ebook_url      = $demo_ebook ? get_permalink( $demo_ebook ) : '#';
         <span class="live-demo-caption">Live flipbook &middot; drag a page corner to turn &middot; double-spread view</span>
       </div>
       <div class="live-demo-body">
-        <?php echo do_shortcode( '[pdfev_embed_viewer id="215" show_author="no" show_year="no"]' ); ?>
+        <?php echo do_shortcode( '[pdfev_embed_viewer id="215" show_author="no" show_year="no" show_download="no"]' ); ?>
       </div>
     </div>
   </div>
