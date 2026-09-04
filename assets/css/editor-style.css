@@ -12,10 +12,16 @@
   --font-body:'Outfit', system-ui, sans-serif;
 }
 
+/* Explicit, standard values — a body rule that only sets font-family/color
+   still inherits whatever weight the loaded 'Outfit' variable font resolves
+   to by default, which read as noticeably bold/large next to WordPress's
+   own editor text (reported directly: description fields using this
+   preview looked bold and oversized, not like normal paragraph text). */
 body{
   font-family: var(--font-body);
   color: var(--ink);
-  font-size: 17px;
+  font-size: 15px;
+  font-weight: 400;
   line-height: 1.6;
 }
 
@@ -23,6 +29,10 @@ h1, h2, h3, h4, h5, h6{
   font-family: var(--font-display);
   font-weight: 700;
   line-height: 1.15;
+}
+
+p{
+  font-weight: 400;
 }
 
 em{ color: var(--accent); font-style: italic; }
