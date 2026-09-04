@@ -457,6 +457,33 @@ p{color:var(--ink);}
 .cta-dark .btn-row{justify-content:center;}
 .cta-dark-note{margin-top:var(--sp-lg);font-family:var(--font-mono);font-size:0.78rem;color:rgba(250,247,242,0.3);}
 
+/* ===== Live demo (dark, full width) — the plugin's own real output, shown
+   in a "window" chrome rather than a browser frame, right under the hero.
+   Reuses the CTA band's dark palette (var(--ink) + an accent-tinted glow)
+   for consistency rather than introducing a second, unrelated dark theme. */
+.live-demo-section{position:relative;background:var(--ink);padding-block:var(--sp-2xl);overflow:clip;}
+.live-demo-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 55% at 50% 20%, rgba(var(--accent-rgb),0.16), transparent);}
+.live-demo-section .u-container{position:relative;z-index:1;}
+.live-demo-section .section-head{margin-bottom:var(--sp-xl);}
+.live-demo-window{
+  max-width:920px;margin-inline:auto;
+  background:var(--surface);border-radius:var(--r-md);
+  box-shadow:0 60px 120px -40px rgba(0,0,0,0.6), 0 20px 50px -20px rgba(0,0,0,0.45);
+  overflow:hidden;
+}
+.live-demo-titlebar{display:flex;align-items:center;gap:7px;padding:14px 18px;background:#120f0b;}
+.live-demo-dot{width:11px;height:11px;border-radius:50%;flex:none;}
+.live-demo-dot--red{background:#ff5f56;}
+.live-demo-dot--yellow{background:#ffbd2e;}
+.live-demo-dot--green{background:#27c93f;}
+.live-demo-caption{margin-left:8px;font-family:var(--font-mono);font-size:0.78rem;color:rgba(255,255,255,0.4);}
+.live-demo-body{padding:28px;}
+@media (max-width:640px){
+  .live-demo-body{padding:14px;}
+  .live-demo-titlebar{padding:12px 14px;}
+  .live-demo-caption{display:none;}
+}
+
 /* ===== Footer ===== */
 .site-footer{border-top:1px solid var(--line);padding-block:var(--sp-xl) var(--sp-lg);}
 .footer-top{display:flex;justify-content:space-between;gap:var(--sp-xl);flex-wrap:wrap;margin-bottom:var(--sp-xl);}

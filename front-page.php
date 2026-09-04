@@ -73,6 +73,28 @@ $demo_ebook_url      = $demo_ebook ? get_permalink( $demo_ebook ) : '#';
   </div>
 </section>
 
+<section class="live-demo-section reveal">
+  <div class="live-demo-glow"></div>
+  <div class="u-container">
+    <div class="section-head centered reveal">
+      <div class="eyebrow" style="justify-content:center;margin-bottom:12px;"><span class="dot"></span>See it in action</div>
+      <h2 style="color:var(--bg);">A real flipbook, right here.</h2>
+      <p class="lede" style="color:rgba(250,247,242,0.55);margin-inline:auto;">This is the plugin's own live output &mdash; drag a page corner to turn it, no mockup.</p>
+    </div>
+    <div class="live-demo-window reveal">
+      <div class="live-demo-titlebar">
+        <span class="live-demo-dot live-demo-dot--red"></span>
+        <span class="live-demo-dot live-demo-dot--yellow"></span>
+        <span class="live-demo-dot live-demo-dot--green"></span>
+        <span class="live-demo-caption">Live flipbook &middot; drag a page corner to turn &middot; double-spread view</span>
+      </div>
+      <div class="live-demo-body">
+        <?php echo do_shortcode( '[pdfev_embed_viewer id="215" show_author="no" show_year="no"]' ); ?>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Placeholder trust row — swap for real customer names before this goes live. -->
 <div class="logo-bar">
   <div class="u-container">
