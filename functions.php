@@ -22,13 +22,71 @@ function flipbook_theme_assets() {
 add_action( 'wp_enqueue_scripts', 'flipbook_theme_assets' );
 
 /**
- * The homepage no longer calls do_shortcode() itself — every live embed now
- * lives on its own page under /demo/ (Flipbook, Grid, List, Newsletter,
- * Ebook), each with the shortcode saved in that page's real post_content.
- * The plugin's own asset-loading check (PDFEV\Enque_Style::frontend_style(),
- * which scans has_shortcode() on the current post) finds it there natively,
- * so nothing needs enqueuing from the theme any more. An earlier version of
- * this file duplicated the plugin's whole frontend asset chain here to work
- * around the homepage embedding shortcodes directly from PHP — that's gone
- * now that the embeds themselves moved.
+ * front-page.php calls do_shortcode() directly (the hero's mock preview
+ * links out to /demo/ pages, but the "Live flipbook" section embeds the
+ * real shortcode inline) — that's a shortcode used outside any post's saved
+ * post_content, which pdf-embed-viewer's own has_shortcode()-based
+ * asset-loading check can't see ahead of time. That gap is handled on the
+ * plugin's side (PDFEV\Enque_Style::late_frontend_style(), a wp_footer
+ * fallback keyed off Shortcode::$shortcode_used), not here — nothing needs
+ * enqueuing from the theme for it.
  */
+
+/**
+ * Customizer: container width. Everything else in main.css reads
+ * var(--container) (see :root), so this is the whole control surface —
+ * changing it changes every .u-container-based section at once.
+ */
+function flipbook_theme_customize_register( $wp_customize ) {
+    $wp_customize->add_section( 'flipbook_theme_layout', array(
+        'title'    => __( 'Layout', 'flipbook-theme' ),
+        'priority' => 30,
+    ) );
+
+    $wp_customize->add_setting( 'flipbook_container_width', array(
+        'default'           => 1180,
+        'sanitize_callback' => 'absint',
+        'transport'         => 'postMessage',
+    ) );
+
+    $wp_customize->add_control( 'flipbook_container_width', array(
+        'type'        => 'number',
+        'section'     => 'flipbook_theme_layout',
+        'label'       => __( 'Container Width (px)', 'flipbook-theme' ),
+        'description' => __( 'Max width of the page content — the hero, sections, and the Live flipbook window all share this.', 'flipbook-theme' ),
+        'input_attrs' => array( 'min' => 720, 'max' => 1600, 'step' => 10 ),
+    ) );
+}
+add_action( 'customize_register', 'flipbook_theme_customize_register' );
+
+function flipbook_theme_customize_css() {
+    $width = absint( get_theme_mod( 'flipbook_container_width', 1180 ) );
+    if ( $width === 1180 ) {
+        return;
+    }
+    printf( '<style>:root{--container:%dpx;}</style>' . "\n", $width );
+}
+add_action( 'wp_head', 'flipbook_theme_customize_css', 20 );
+
+function flipbook_theme_customize_preview_js() {
+    if ( ! is_customize_preview() ) {
+        return;
+    }
+    wp_add_inline_script( 'customize-preview', "
+        (function(){
+            wp.customize('flipbook_container_width', function(value){
+                value.bind(function(newval){
+                    var id = 'flipbook-container-width-preview';
+                    var el = document.getElementById(id);
+                    if (!el) {
+                        el = document.createElement('style');
+                        el.id = id;
+                        document.head.appendChild(el);
+                    }
+                    el.textContent = ':root{--container:' + newval + 'px;}';
+                });
+            });
+        })();
+    " );
+}
+add_action( 'customize_preview_init', 'flipbook_theme_customize_preview_js' );
