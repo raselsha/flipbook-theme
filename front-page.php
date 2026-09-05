@@ -282,7 +282,6 @@ $demo_ebook_url      = $demo_ebook ? get_permalink( $demo_ebook ) : '#';
   </div>
 </section>
 
-<!-- Placeholder pricing — Pro/Business figures are not final, swap before this goes live. -->
 <section class="section" id="pricing" style="border-top:1px solid var(--line);background:var(--surface-alt);">
   <div class="u-container">
     <div class="section-head centered reveal">
@@ -308,7 +307,7 @@ $demo_ebook_url      = $demo_ebook ? get_permalink( $demo_ebook ) : '#';
       <div class="price-card price-card--highlight reveal">
         <div class="price-badge">Most Popular</div>
         <div class="price-name">Pro</div>
-        <div class="price-value"><strong>[Price]</strong><span>/year</span></div>
+        <div class="price-value"><strong>$79</strong><span>/year</span></div>
         <p class="price-desc">For sites that want a premium, on-brand reading experience.</p>
         <ul class="price-features">
           <li><span class="tick">&check;</span> Everything in Free</li>
@@ -321,7 +320,7 @@ $demo_ebook_url      = $demo_ebook ? get_permalink( $demo_ebook ) : '#';
       </div>
       <div class="price-card reveal">
         <div class="price-name">Business</div>
-        <div class="price-value"><strong>[Price]</strong><span>/year</span></div>
+        <div class="price-value"><strong>$149</strong><span>/year</span></div>
         <p class="price-desc">For agencies publishing across multiple client sites.</p>
         <ul class="price-features">
           <li><span class="tick">&check;</span> Everything in Pro</li>
@@ -332,7 +331,7 @@ $demo_ebook_url      = $demo_ebook ? get_permalink( $demo_ebook ) : '#';
         <a class="price-cta price-cta--outline" href="<?php echo esc_url( home_url( '/contact-support/' ) ); ?>">Contact Sales</a>
       </div>
     </div>
-    <p class="pricing-note">Pro and Business pricing shown here is a placeholder &mdash; final figures aren't set yet.</p>
+    <p class="pricing-note">14-day money-back guarantee. Cancel anytime.</p>
   </div>
 </section>
 
