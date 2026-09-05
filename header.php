@@ -44,7 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
           <?php endforeach; ?>
         </div>
       </div>
-      <a class="btn btn--primary" href="https://wordpress.org/plugins/pdf-embed-viewer/">Get the plugin</a>
+      <a class="btn btn--primary" href="https://downloads.wordpress.org/plugin/pdf-embed-viewer.zip">Get the plugin</a>
     </nav>
   </div>
 </header>

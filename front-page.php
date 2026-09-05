@@ -28,7 +28,7 @@ $demo_ebook_url      = $demo_ebook ? get_permalink( $demo_ebook ) : '#';
       <h1>Turn any PDF into a book people actually <em>flip</em> through.</h1>
       <p class="lede">Drop in a PDF and get a realistic, page-turning 3D flipbook &mdash; no design work, no code, just a shortcode.</p>
       <div class="btn-row">
-        <a class="btn btn--primary" href="https://wordpress.org/plugins/pdf-embed-viewer/">Download Free <span aria-hidden="true">&darr;</span></a>
+        <a class="btn btn--primary" href="https://downloads.wordpress.org/plugin/pdf-embed-viewer.zip">Download Free <span aria-hidden="true">&darr;</span></a>
         <a class="btn btn--ghost" href="#formats">See every format &rarr;</a>
       </div>
       <div class="hero-checks">
@@ -302,7 +302,7 @@ $demo_ebook_url      = $demo_ebook ? get_permalink( $demo_ebook ) : '#';
           <li><span class="tick">&check;</span> Read &amp; download counters</li>
           <li><span class="tick">&check;</span> Community support</li>
         </ul>
-        <a class="price-cta price-cta--outline" href="https://wordpress.org/plugins/pdf-embed-viewer/">Get for Free</a>
+        <a class="price-cta price-cta--outline" href="https://downloads.wordpress.org/plugin/pdf-embed-viewer.zip">Get for Free</a>
       </div>
       <div class="price-card price-card--highlight reveal">
         <div class="price-badge">Most Popular</div>
@@ -343,7 +343,7 @@ $demo_ebook_url      = $demo_ebook ? get_permalink( $demo_ebook ) : '#';
     <h2>Your next flipbook<br><span class="accent-italic">is one upload away.</span></h2>
     <p class="lede">Join thousands of WordPress publishers who trust Flipbook PDF to make their content shine.</p>
     <div class="btn-row">
-      <a class="btn btn--primary" href="https://wordpress.org/plugins/pdf-embed-viewer/">Download Free Plugin <span aria-hidden="true">&darr;</span></a>
+      <a class="btn btn--primary" href="https://downloads.wordpress.org/plugin/pdf-embed-viewer.zip">Download Free Plugin <span aria-hidden="true">&darr;</span></a>
       <a class="btn btn--dark" href="<?php echo esc_url( home_url( '/contact-support/' ) ); ?>">Contact Support &rarr;</a>
     </div>
     <p class="cta-dark-note">No account required &middot; Works with WordPress 6.0+ &middot; GPLv2 or later</p>
