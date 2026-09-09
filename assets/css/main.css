@@ -11,8 +11,8 @@
   --accent-ink:#faf7f2;
   --muted:#8c7b6a;
   --line: rgba(26,20,16,0.1);
-  --font-display:'Fraunces', Georgia, serif;
-  --font-body:'Outfit', system-ui, sans-serif;
+  --font-display:'Poppins', system-ui, sans-serif;
+  --font-body:'Poppins', system-ui, sans-serif;
   --font-mono:'JetBrains Mono', monospace;
   --sp-sm:8px; --sp-md:16px; --sp-lg:32px; --sp-xl:64px; --sp-2xl:112px;
   --r-sm:3px; --r-md:6px; --r-pill:999px;

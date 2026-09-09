@@ -8,8 +8,8 @@
 :root{
   --ink:#1a1410;
   --accent:#c8620a;
-  --font-display:'Fraunces', Georgia, serif;
-  --font-body:'Outfit', system-ui, sans-serif;
+  --font-display:'Poppins', system-ui, sans-serif;
+  --font-body:'Poppins', system-ui, sans-serif;
 }
 
 /* Explicit, standard values — a body rule that only sets font-family/color

@@ -1,34 +1,73 @@
 /* Signal Fold type system — self-hosted, no external font requests.
-   Each family below is served as a single variable-weight woff2 (Google's
-   own CSS2 API returns the identical file for every requested static weight
-   in these three families — verified by diffing the URLs), so one
-   @font-face per style covers its whole weight range rather than repeating
-   the same file under several fixed-weight rules. */
-@font-face {
-  font-family: 'Fraunces';
-  src: url('../fonts/fraunces-var.woff2') format('woff2');
-  font-weight: 300 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Fraunces';
-  src: url('../fonts/fraunces-italic-var.woff2') format('woff2');
-  font-weight: 300 900;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Outfit';
-  src: url('../fonts/outfit-var.woff2') format('woff2');
-  font-weight: 300 700;
-  font-style: normal;
-  font-display: swap;
-}
+   JetBrains Mono is served as a single variable-weight woff2 (Google's own
+   CSS2 API returns the identical file for every requested static weight in
+   that family), so one @font-face covers its whole weight range. Poppins
+   below isn't a variable font on Google Fonts, so it's one @font-face per
+   static weight/style instead. */
 @font-face {
   font-family: 'JetBrains Mono';
   src: url('../fonts/jetbrains-mono-var.woff2') format('woff2');
   font-weight: 400 600;
   font-style: normal;
+  font-display: swap;
+}
+
+/* Poppins — unlike the three families above, Google doesn't serve this one
+   as a variable font, so it's one @font-face per static weight/style
+   (latin subset only) instead of a single variable-range file. */
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/poppins-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/poppins-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/poppins-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/poppins-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/poppins-900.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/poppins-400-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/poppins-700-italic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/poppins-900-italic.woff2') format('woff2');
+  font-weight: 900;
+  font-style: italic;
   font-display: swap;
 }
