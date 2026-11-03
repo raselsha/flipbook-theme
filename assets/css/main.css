@@ -569,14 +569,17 @@ code{font-family:var(--font-mono);font-size:0.88em;}
 .review-more a:hover{text-decoration:underline;}
 
 /* ===== Pricing ===== */
-.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:20px;max-width:760px;margin:48px auto 0;}
-.price-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--rule);border-radius:var(--r-md);padding:28px;}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:14px;max-width:none;margin:48px auto 0;}
+.price-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--rule);border-radius:var(--r-md);padding:24px 22px;}
+.price-card--lifetime{border:2px solid var(--accent);padding:23px 21px;}
 .price-name{font-family:var(--font-mono);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);}
-.price-top{display:flex;justify-content:space-between;align-items:center;}
-.price-badge{background:var(--accent);color:#fff;border-radius:4px;padding:3px 8px;font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.06em;text-transform:uppercase;}
+.price-top{display:flex;justify-content:space-between;align-items:center;gap:8px;}
+.price-badge{background:var(--accent);color:#fff;border-radius:4px;padding:3px 8px;font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;}
 .price-value{display:flex;align-items:baseline;gap:6px;margin-top:12px;}
-.price-value strong{font-size:2.9rem;font-weight:600;letter-spacing:-0.03em;line-height:1.1;}
+.price-value strong{font-size:2.5rem;font-weight:600;letter-spacing:-0.03em;line-height:1.1;}
 .price-value span{color:var(--muted);}
+.price-sites{margin-top:10px;font-family:var(--font-mono);font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent-text);}
+.price-card--dark .price-sites{color:#c4b0ff;}
 .price-desc{margin-top:8px;font-size:0.94rem;line-height:1.55;color:var(--ink-2);}
 .price-features{flex:1;display:flex;flex-direction:column;gap:11px;margin:22px 0 24px;padding-top:18px;border-top:1px solid var(--rule-soft);font-size:0.94rem;}
 .price-card--dark{position:relative;background:var(--ink);border-color:var(--ink);color:#fff;box-shadow:0 30px 50px -28px rgba(var(--ink-rgb),.6);}

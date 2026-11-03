@@ -315,10 +315,39 @@ $contact_url  = 'mailto:hello@lieusoft.com';
       </ul>
       <a class="btn btn--outline btn--block" href="<?php echo esc_url( $download_url ); ?>">Download free</a>
     </div>
+    <div class="price-card reveal">
+      <div class="price-name">Pro Single</div>
+      <div class="price-value"><strong>$22</strong><span>/ year</span></div>
+      <p class="price-sites">1 domain</p>
+      <p class="price-desc">For one site that wants a premium, on-brand reading experience.</p>
+      <ul class="price-features">
+        <li>✓&nbsp; Everything in Free</li>
+        <li>✓&nbsp; Premium toolbar skins</li>
+        <li>✓&nbsp; Custom brand colors</li>
+        <li>✓&nbsp; Download button control</li>
+        <li>✓&nbsp; 1 year of updates &amp; support</li>
+      </ul>
+      <a class="btn btn--outline btn--block" href="<?php echo esc_url( $purchase_url ); ?>">Buy on Lieusoft</a>
+    </div>
     <div class="price-card price-card--dark reveal">
-      <div class="price-top"><span class="price-name">Pro</span><span class="price-badge">One-time</span></div>
-      <div class="price-value"><strong>$22</strong><span>/ one-time</span></div>
-      <p class="price-desc">For sites that want a premium, on-brand reading experience.</p>
+      <div class="price-top"><span class="price-name">Pro 10</span><span class="price-badge">Best value</span></div>
+      <div class="price-value"><strong>$49</strong><span>/ year</span></div>
+      <p class="price-sites">10 domains</p>
+      <p class="price-desc">For agencies and publishers running several sites.</p>
+      <ul class="price-features">
+        <li>✓&nbsp; Everything in Free</li>
+        <li>✓&nbsp; Premium toolbar skins</li>
+        <li>✓&nbsp; Custom brand colors</li>
+        <li>✓&nbsp; Download button control</li>
+        <li>✓&nbsp; 1 year of updates &amp; support</li>
+      </ul>
+      <a class="btn btn--light btn--block" href="<?php echo esc_url( $purchase_url ); ?>">Buy on Lieusoft</a>
+    </div>
+    <div class="price-card price-card--lifetime reveal">
+      <div class="price-top"><span class="price-name">Lifetime</span><span class="price-badge">Pay once</span></div>
+      <div class="price-value"><strong>$79</strong><span>/ one-time</span></div>
+      <p class="price-sites">Unlimited domains</p>
+      <p class="price-desc">One payment for every site you run, now and later.</p>
       <ul class="price-features">
         <li>✓&nbsp; Everything in Free</li>
         <li>✓&nbsp; Premium toolbar skins</li>
@@ -326,10 +355,10 @@ $contact_url  = 'mailto:hello@lieusoft.com';
         <li>✓&nbsp; Download button control</li>
         <li>✓&nbsp; Lifetime updates &amp; support</li>
       </ul>
-      <a class="btn btn--light btn--block" href="<?php echo esc_url( $purchase_url ); ?>">Buy Pro on Lieusoft</a>
+      <a class="btn btn--primary btn--block" href="<?php echo esc_url( $purchase_url ); ?>">Buy on Lieusoft</a>
     </div>
   </div>
-  <p class="pricing-note">One-time payment · Lifetime updates and support · Checkout on <a href="<?php echo esc_url( $purchase_url ); ?>">lieusoft.com</a></p>
+  <p class="pricing-note">Yearly plans renew each year · Lifetime is a one-time payment · Prices in USD · Checkout on <a href="<?php echo esc_url( $purchase_url ); ?>">lieusoft.com</a></p>
 </section>
 
 <!-- ===== CTA ===== -->
