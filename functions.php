@@ -22,6 +22,29 @@ function flipbook_theme_assets() {
 add_action( 'wp_enqueue_scripts', 'flipbook_theme_assets' );
 
 /**
+ * Favicon: the theme's own brand mark, overriding whatever Site Icon is set
+ * in Settings → General. Filtering get_site_icon_url (rather than printing
+ * separate <link> tags) keeps WP's own wp_site_icon() output and its
+ * /favicon.ico redirect both pointing at these files.
+ */
+function flipbook_theme_site_icon_url( $url, $size ) {
+    $base = get_template_directory_uri() . '/assets/img/';
+    if ( 180 === (int) $size ) {
+        return $base . 'apple-touch-icon.png';
+    }
+    if ( $size <= 32 ) {
+        return $base . 'favicon-32.png';
+    }
+    return $size <= 192 ? $base . 'favicon-192.png' : $base . 'favicon-270.png';
+}
+add_filter( 'get_site_icon_url', 'flipbook_theme_site_icon_url', 10, 2 );
+
+function flipbook_theme_svg_favicon() {
+    printf( '<link rel="icon" href="%s" type="image/svg+xml" />' . "\n", esc_url( get_template_directory_uri() . '/assets/img/favicon.svg' ) );
+}
+add_action( 'wp_head', 'flipbook_theme_svg_favicon', 98 );
+
+/**
  * front-page.php calls do_shortcode() directly (the hero's mock preview
  * links out to /demo/ pages, but the "Live flipbook" section embeds the
  * real shortcode inline) — that's a shortcode used outside any post's saved
