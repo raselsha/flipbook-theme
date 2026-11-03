@@ -22,6 +22,8 @@ $demo_ebook_url      = $demo_ebook ? get_permalink( $demo_ebook ) : '#';
 
 $download_url = 'https://downloads.wordpress.org/plugin/pdf-embed-viewer.zip';
 $reviews_url  = 'https://wordpress.org/support/plugin/pdf-embed-viewer/reviews/';
+$purchase_url = 'https://lieusoft.com/pdf-embed-viewer/#pricing';
+$contact_url  = 'mailto:hello@lieusoft.com';
 ?>
 <main class="frame">
 
@@ -314,32 +316,20 @@ $reviews_url  = 'https://wordpress.org/support/plugin/pdf-embed-viewer/reviews/'
       <a class="btn btn--outline btn--block" href="<?php echo esc_url( $download_url ); ?>">Download free</a>
     </div>
     <div class="price-card price-card--dark reveal">
-      <div class="price-top"><span class="price-name">Pro</span><span class="price-badge">Most popular</span></div>
-      <div class="price-value"><strong>$79</strong><span>/ year</span></div>
+      <div class="price-top"><span class="price-name">Pro</span><span class="price-badge">One-time</span></div>
+      <div class="price-value"><strong>$22</strong><span>/ one-time</span></div>
       <p class="price-desc">For sites that want a premium, on-brand reading experience.</p>
       <ul class="price-features">
         <li>✓&nbsp; Everything in Free</li>
         <li>✓&nbsp; Premium toolbar skins</li>
         <li>✓&nbsp; Custom brand colors</li>
         <li>✓&nbsp; Download button control</li>
-        <li>✓&nbsp; Priority email support</li>
+        <li>✓&nbsp; Lifetime updates &amp; support</li>
       </ul>
-      <a class="btn btn--light btn--block" href="<?php echo esc_url( home_url( '/contact-support/' ) ); ?>">Start with Pro</a>
-    </div>
-    <div class="price-card reveal">
-      <div class="price-name">Business</div>
-      <div class="price-value"><strong>$149</strong><span>/ year</span></div>
-      <p class="price-desc">For agencies publishing across multiple client sites.</p>
-      <ul class="price-features">
-        <li>✓&nbsp; Everything in Pro</li>
-        <li>✓&nbsp; Multiple site licenses</li>
-        <li>✓&nbsp; White-label branding</li>
-        <li>✓&nbsp; Dedicated support channel</li>
-      </ul>
-      <a class="btn btn--outline btn--block" href="<?php echo esc_url( home_url( '/contact-support/' ) ); ?>">Contact sales</a>
+      <a class="btn btn--light btn--block" href="<?php echo esc_url( $purchase_url ); ?>">Buy Pro on Lieusoft</a>
     </div>
   </div>
-  <p class="pricing-note">14-day money-back guarantee · Cancel anytime</p>
+  <p class="pricing-note">One-time payment · Lifetime updates and support · Checkout on <a href="<?php echo esc_url( $purchase_url ); ?>">lieusoft.com</a></p>
 </section>
 
 <!-- ===== CTA ===== -->
@@ -350,7 +340,7 @@ $reviews_url  = 'https://wordpress.org/support/plugin/pdf-embed-viewer/reviews/'
       <p>Free on WordPress.org. Works with WordPress 6.0+, GPLv2 or later.</p>
       <div class="btn-row btn-row--center">
         <a class="btn btn--primary btn--lg" href="<?php echo esc_url( $download_url ); ?>">Download free plugin</a>
-        <a class="btn btn--outline btn--lg" href="<?php echo esc_url( home_url( '/contact-support/' ) ); ?>">Contact support</a>
+        <a class="btn btn--outline btn--lg" href="<?php echo esc_url( $contact_url ); ?>">Contact support</a>
       </div>
     </div>
   </div>
