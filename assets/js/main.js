@@ -9,6 +9,17 @@
     });
   }
 
+  document.querySelectorAll('.copy-btn[data-copy]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if (!navigator.clipboard) return;
+      navigator.clipboard.writeText(btn.getAttribute('data-copy')).then(function(){
+        var label = btn.textContent;
+        btn.textContent = 'Copied';
+        setTimeout(function(){ btn.textContent = label; }, 1600);
+      });
+    });
+  });
+
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var targets = document.querySelectorAll('.reveal');
   if (!targets.length) return;

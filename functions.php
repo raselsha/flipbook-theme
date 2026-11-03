@@ -44,7 +44,7 @@ function flipbook_theme_customize_register( $wp_customize ) {
     ) );
 
     $wp_customize->add_setting( 'flipbook_container_width', array(
-        'default'           => 1180,
+        'default'           => 1240,
         'sanitize_callback' => 'absint',
         'transport'         => 'postMessage',
     ) );
@@ -60,8 +60,8 @@ function flipbook_theme_customize_register( $wp_customize ) {
 add_action( 'customize_register', 'flipbook_theme_customize_register' );
 
 function flipbook_theme_customize_css() {
-    $width = absint( get_theme_mod( 'flipbook_container_width', 1180 ) );
-    if ( $width === 1180 ) {
+    $width = absint( get_theme_mod( 'flipbook_container_width', 1240 ) );
+    if ( $width === 1240 ) {
         return;
     }
     printf( '<style>:root{--container:%dpx;}</style>' . "\n", $width );

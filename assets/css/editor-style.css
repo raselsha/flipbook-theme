@@ -6,14 +6,14 @@
    links — none of main.css's page-chrome rules (which don't mean anything
    inside a small text area anyway). */
 :root{
-  --ink:#1a1410;
-  --accent:#c8620a;
-  --font-display:'Poppins', system-ui, sans-serif;
-  --font-body:'Poppins', system-ui, sans-serif;
+  --ink:#16151a;
+  --accent:#5b21d6;
+  --font-display:'Instrument Sans', system-ui, sans-serif;
+  --font-body:'Instrument Sans', system-ui, sans-serif;
 }
 
 /* Explicit, standard values — a body rule that only sets font-family/color
-   still inherits whatever weight the loaded 'Outfit' variable font resolves
+   still inherits whatever weight the loaded 'Instrument Sans' variable font resolves
    to by default, which read as noticeably bold/large next to WordPress's
    own editor text (reported directly: description fields using this
    preview looked bold and oversized, not like normal paragraph text). */
