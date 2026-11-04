@@ -644,6 +644,11 @@ code{font-family:var(--font-mono);font-size:0.88em;}
 .content-page .entry > h2 + p{margin-bottom:20px;font-family:var(--font-mono);font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);}
 .content-page .entry a:not(.btn){color:var(--accent-text);text-decoration:underline;text-underline-offset:3px;}
 
+/* Single PDF page (template/single.php): the plugin's own header links
+   and buttons, not prose links. */
+.pdfev-single-page .entry a:not(.btn){text-decoration:none;}
+.pdfev-single-page .back-button{white-space:nowrap;}
+
 /* ===== Motion ===== */
 @keyframes fadeUp{ from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
 .animate-fade-up{animation:fadeUp .7s ease forwards;}
