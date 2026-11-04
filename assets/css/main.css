@@ -621,11 +621,13 @@ code{font-family:var(--font-mono);font-size:0.88em;}
 /* ===== Arabic-script languages =====
    Arabic text picks up Noto Naskh Arabic through the font stacks above;
    Urdu (marked lang="ur" by the plugin) switches to Nastaliq, which needs
-   extra line height for its tall, sloping letterforms. */
-:lang(ar){font-family:'Noto Naskh Arabic', var(--font-body);letter-spacing:0;}
-:lang(ur){font-family:'Noto Nastaliq Urdu', 'Noto Naskh Arabic', var(--font-body);letter-spacing:0;line-height:2.1;}
-:lang(ur) h1,:lang(ur) h2,:lang(ur) h3,h2:lang(ur),h3:lang(ur){line-height:1.9;letter-spacing:0;font-weight:500;}
-:lang(ar) h1,:lang(ar) h2,:lang(ar) h3,h2:lang(ar),h3:lang(ar){line-height:1.45;letter-spacing:0;}
+   extra line height for its tall, sloping letterforms. Set on the [lang]
+   wrapper only (not :lang, which matches every descendant) so icon fonts
+   and the mono kicker keep their own font-family. */
+[lang="ar"]{font-family:'Noto Naskh Arabic', var(--font-body);letter-spacing:0;}
+[lang="ur"]{font-family:'Noto Nastaliq Urdu', 'Noto Naskh Arabic', var(--font-body);letter-spacing:0;}
+[lang="ar"] :is(h1,h2,h3,h4){font-family:'Noto Naskh Arabic', var(--font-display);line-height:1.45;letter-spacing:0;}
+[lang="ur"] :is(h1,h2,h3,h4){font-family:'Noto Nastaliq Urdu', 'Noto Naskh Arabic', var(--font-display);line-height:1.9;letter-spacing:0;font-weight:500;}
 
 /* ===== Generic content page (page.php / index.php) ===== */
 /* page.php is shared by prose pages and by every /demo/* page that just
