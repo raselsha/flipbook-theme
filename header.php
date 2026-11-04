@@ -17,6 +17,7 @@ $flipbook_theme_demo_subs = array(
     'list'       => 'List',
     'newsletter' => 'Newsletter',
     'ebook'      => 'Ebook',
+    'rtl'        => 'RTL (Arabic, Urdu, Hebrew)',
 );
 ?>
 <div class="announce">
