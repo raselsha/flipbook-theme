@@ -9,6 +9,11 @@
     });
   }
 
+  // "Demo" is only a submenu label — keep its "#" from jumping to the top.
+  document.querySelectorAll('.nav-has-sub > a[href="#"]').forEach(function(link){
+    link.addEventListener('click', function(e){ e.preventDefault(); });
+  });
+
   document.querySelectorAll('.copy-btn[data-copy]').forEach(function(btn){
     btn.addEventListener('click', function(){
       if (!navigator.clipboard) return;
