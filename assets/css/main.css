@@ -19,8 +19,8 @@
   --night-line:#2a2830;
   --night-text:#c9c5d3;
   --night-muted:#8a8696;
-  --font-display:'Instrument Sans', system-ui, sans-serif;
-  --font-body:'Instrument Sans', system-ui, sans-serif;
+  --font-display:'Instrument Sans', 'Noto Naskh Arabic', system-ui, sans-serif;
+  --font-body:'Instrument Sans', 'Noto Naskh Arabic', system-ui, sans-serif;
   --font-serif:'Instrument Serif', Georgia, serif;
   --font-mono:'JetBrains Mono', ui-monospace, monospace;
   --grain:url('../img/grain.png');
@@ -617,6 +617,15 @@ code{font-family:var(--font-mono);font-size:0.88em;}
 .footer-col a{display:block;padding-block:4px;font-size:0.92rem;color:var(--night-text);transition:color .15s ease;}
 .footer-col a:hover{color:#fff;}
 .footer-bottom{display:flex;justify-content:space-between;gap:var(--sp-md);flex-wrap:wrap;border-top:1px solid var(--night-line);padding-top:20px;font-family:var(--font-mono);font-size:0.75rem;color:var(--night-muted);}
+
+/* ===== Arabic-script languages =====
+   Arabic text picks up Noto Naskh Arabic through the font stacks above;
+   Urdu (marked lang="ur" by the plugin) switches to Nastaliq, which needs
+   extra line height for its tall, sloping letterforms. */
+:lang(ar){font-family:'Noto Naskh Arabic', var(--font-body);letter-spacing:0;}
+:lang(ur){font-family:'Noto Nastaliq Urdu', 'Noto Naskh Arabic', var(--font-body);letter-spacing:0;line-height:2.1;}
+:lang(ur) h1,:lang(ur) h2,:lang(ur) h3,h2:lang(ur),h3:lang(ur){line-height:1.9;letter-spacing:0;font-weight:500;}
+:lang(ar) h1,:lang(ar) h2,:lang(ar) h3,h2:lang(ar),h3:lang(ar){line-height:1.45;letter-spacing:0;}
 
 /* ===== Generic content page (page.php / index.php) ===== */
 /* page.php is shared by prose pages and by every /demo/* page that just
