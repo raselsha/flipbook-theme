@@ -28,7 +28,7 @@ $flipbook_theme_back  = $flipbook_theme_back ? get_permalink( $flipbook_theme_ba
 <main class="content-page frame pdfev-single-page">
   <div class="u-container entry">
     <?php
-    if ( ! ( function_exists( 'elementor_theme_do_location' ) && elementor_theme_do_location( 'single' ) ) ) :
+    if ( ! ( method_exists( 'PDFEV_Functions', 'render_elementor_single' ) ? PDFEV_Functions::render_elementor_single() : ( function_exists( 'elementor_theme_do_location' ) && elementor_theme_do_location( 'single' ) ) ) ) :
         ?>
     <header class="fb-single-head"<?php echo $flipbook_theme_lang; // phpcs:ignore WordPress.Security.EscapeOutput -- built with esc_attr() ?>>
       <a class="fb-single-back" href="<?php echo esc_url( $flipbook_theme_back ); ?>"><span aria-hidden="true">&larr;</span> <?php esc_html_e( 'All publications', 'flipbook-theme' ); ?></a>
