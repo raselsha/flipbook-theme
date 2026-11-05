@@ -322,6 +322,7 @@ $contact_url  = 'mailto:hello@lieusoft.com';
       <p class="price-desc">For one site that wants a premium, on-brand reading experience.</p>
       <ul class="price-features">
         <li>✓&nbsp; Everything in Free</li>
+        <li>✓&nbsp; <strong>Lockdown — no downloads</strong></li>
         <li>✓&nbsp; Premium toolbar skins</li>
         <li>✓&nbsp; Custom brand colors</li>
         <li>✓&nbsp; Download button control</li>
@@ -336,6 +337,7 @@ $contact_url  = 'mailto:hello@lieusoft.com';
       <p class="price-desc">For agencies and publishers running several sites.</p>
       <ul class="price-features">
         <li>✓&nbsp; Everything in Free</li>
+        <li>✓&nbsp; <strong>Lockdown — no downloads</strong></li>
         <li>✓&nbsp; Premium toolbar skins</li>
         <li>✓&nbsp; Custom brand colors</li>
         <li>✓&nbsp; Download button control</li>
@@ -350,6 +352,7 @@ $contact_url  = 'mailto:hello@lieusoft.com';
       <p class="price-desc">One payment for every site you run, now and later.</p>
       <ul class="price-features">
         <li>✓&nbsp; Everything in Free</li>
+        <li>✓&nbsp; <strong>Lockdown — no downloads</strong></li>
         <li>✓&nbsp; Premium toolbar skins</li>
         <li>✓&nbsp; Custom brand colors</li>
         <li>✓&nbsp; Download button control</li>
