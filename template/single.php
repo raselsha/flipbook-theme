@@ -20,6 +20,7 @@ $flipbook_theme_meta  = array_filter( array(
     get_post_meta( $flipbook_theme_id, 'pdfev_meta_published_year', true ),
     implode( ', ', $flipbook_theme_terms( 'pdfev_publisher' ) ),
 ) );
+$flipbook_theme_desc  = get_option( 'pdfev_show_description' ) === 'yes' ? get_post_meta( $flipbook_theme_id, 'pdfev_meta_description', true ) : '';
 $flipbook_theme_lang  = class_exists( 'PDFEV_Functions' ) && method_exists( 'PDFEV_Functions', 'item_lang_attrs' ) ? PDFEV_Functions::item_lang_attrs( $flipbook_theme_id ) : '';
 $flipbook_theme_back  = get_page_by_path( 'demo/grid' );
 $flipbook_theme_back  = $flipbook_theme_back ? get_permalink( $flipbook_theme_back ) : home_url( '/#formats' );
@@ -34,6 +35,9 @@ $flipbook_theme_back  = $flipbook_theme_back ? get_permalink( $flipbook_theme_ba
       <div class="fb-single-row">
         <div class="fb-single-copy">
           <h1><?php the_title(); ?></h1>
+          <?php if ( $flipbook_theme_desc ) : ?>
+            <p class="fb-single-desc"><?php echo esc_html( $flipbook_theme_desc ); ?></p>
+          <?php endif; ?>
           <?php if ( $flipbook_theme_meta ) : ?>
             <ul class="fb-single-meta">
               <?php foreach ( $flipbook_theme_meta as $flipbook_theme_item ) : ?>

@@ -653,6 +653,8 @@ code{font-family:var(--font-mono);font-size:0.88em;}
 .fb-single-row{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;margin-top:10px;}
 .fb-single-copy{flex:1 1 360px;min-width:0;}
 .content-page .entry .fb-single-head h1{margin:0;font-size:clamp(1.4rem,2.2vw,1.85rem);line-height:1.2;letter-spacing:-0.02em;}
+.fb-single-desc{margin-top:4px;max-width:70ch;font-size:0.95rem;line-height:1.55;color:var(--ink-2);}
+.fb-single-head[lang] .fb-single-desc{direction:rtl;}
 .fb-single-actions{flex:0 0 auto;display:flex;gap:10px;align-items:center;padding:0;max-width:none;width:auto;margin:0;}
 .fb-single-actions .download-btn{min-height:40px;padding:8px 14px;font-size:14px;}
 .fb-single-meta{display:flex;flex-wrap:wrap;gap:2px 0;margin:6px 0 0;padding:0;list-style:none;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.05em;text-transform:uppercase;color:var(--muted);}
