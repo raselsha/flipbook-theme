@@ -201,6 +201,44 @@ $contact_url  = 'mailto:hello@lieusoft.com';
   </div>
 </section>
 
+<!-- ===== Protection (Pro) ===== -->
+<section class="section" id="protection">
+  <div class="eyebrow">[ Protect your PDFs ]</div>
+  <h2 class="section-title">Choose how your files <span class="serif-i">reach readers.</span></h2>
+  <p class="section-lede">Three delivery modes, switched in one setting. Pick how open or locked down your PDFs should be.</p>
+  <div class="mode-grid">
+    <article class="mode-card reveal">
+      <div class="mode-top"><span class="mode-name">Direct URL</span><span class="mode-tag">Free</span></div>
+      <p class="mode-desc">The standard way. The PDF is served straight from your media library.</p>
+      <ul class="mode-list">
+        <li class="is-yes">Download button, on or off per PDF</li>
+        <li class="is-no">File path visible in the page</li>
+        <li class="is-no">Link can be copied and shared</li>
+      </ul>
+    </article>
+    <article class="mode-card reveal">
+      <div class="mode-top"><span class="mode-name">Hide File URL</span><span class="mode-tag mode-tag--pro">Pro</span></div>
+      <p class="mode-desc">Readers can still download, but the real file path never appears anywhere.</p>
+      <ul class="mode-list">
+        <li class="is-yes">File path hidden from the page and its source</li>
+        <li class="is-yes">Downloads through one-time links that expire in 60 seconds</li>
+        <li class="is-yes">Copied links don't open in another tab</li>
+      </ul>
+    </article>
+    <article class="mode-card mode-card--strong reveal">
+      <div class="mode-top"><span class="mode-name">Lockdown — no downloads</span><span class="mode-tag mode-tag--pro">Pro</span></div>
+      <p class="mode-desc">Read-only. The strongest protection for paid, private or premium documents.</p>
+      <ul class="mode-list">
+        <li class="is-yes">No download button, link or toolbar download</li>
+        <li class="is-yes">Original file moved to a locked folder</li>
+        <li class="is-yes">Single-use, 2-minute view links</li>
+        <li class="is-yes">PDF scrambled in transit, useless if saved</li>
+        <li class="is-yes">Print, save and right-click blocked on the book</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
 <!-- ===== Formats ===== -->
 <section class="section" id="formats">
   <h2 class="section-title">One plugin.<br>The <span class="accent-word">whole</span> library.</h2>
@@ -297,6 +335,54 @@ $contact_url  = 'mailto:hello@lieusoft.com';
   <p class="review-more"><a href="<?php echo esc_url( $reviews_url ); ?>">Read all reviews on WordPress.org →</a></p>
 </section>
 
+<!-- ===== Free vs Pro ===== -->
+<section class="section" id="compare">
+  <div class="eyebrow eyebrow--center">[ Compare ]</div>
+  <h2 class="centered-title">Free vs Pro, <span class="serif-i">side by side.</span></h2>
+  <div class="cmp-wrap reveal">
+    <table class="cmp-table">
+      <thead>
+        <tr><th scope="col">Feature</th><th scope="col">Free</th><th scope="col" class="cmp-pro">Pro</th></tr>
+      </thead>
+      <tbody>
+        <tr class="cmp-group"><th colspan="3" scope="colgroup">Viewer</th></tr>
+        <tr><th scope="row">3D page-turning flipbook</th><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td></tr>
+        <tr><th scope="row">Scroll reader (Traditional view) <small>works on every phone</small></th><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td></tr>
+        <tr><th scope="row">Zoom, fullscreen, page counter</th><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td></tr>
+        <tr><th scope="row">Right-to-left books <small>Arabic, Urdu, Hebrew</small></th><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td></tr>
+        <tr><th scope="row">Phone layout: one page at a time, tall stage</th><td class="is-no"><span aria-hidden="true">—</span><span class="screen-reader-text">Not included</span></td><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td></tr>
+        <tr class="cmp-group"><th colspan="3" scope="colgroup">Library &amp; layouts</th></tr>
+        <tr><th scope="row">Unlimited PDFs</th><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td></tr>
+        <tr><th scope="row">Grid, List, Ebook &amp; Newsletter archives</th><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td></tr>
+        <tr><th scope="row">Categories, authors &amp; publishers</th><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td></tr>
+        <tr><th scope="row">Read &amp; download counters</th><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td></tr>
+        <tr><th scope="row">Drag-and-drop ordering</th><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td></tr>
+        <tr><th scope="row">Brand colours</th><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td></tr>
+        <tr class="cmp-group"><th colspan="3" scope="colgroup">Elementor</th></tr>
+        <tr><th scope="row">Archive &amp; Single View widgets with full styling</th><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td></tr>
+        <tr><th scope="row">Title, Cover, Details, Description, Download &amp; Navigation widgets</th><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td></tr>
+        <tr><th scope="row">Custom single PDF page template</th><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td></tr>
+        <tr class="cmp-group"><th colspan="3" scope="colgroup">Protection</th></tr>
+        <tr><th scope="row">Hide File URL</th><td class="is-no"><span aria-hidden="true">—</span><span class="screen-reader-text">Not included</span></td><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td></tr>
+        <tr><th scope="row">Lockdown — no downloads</th><td class="is-no"><span aria-hidden="true">—</span><span class="screen-reader-text">Not included</span></td><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td></tr>
+        <tr class="cmp-group"><th colspan="3" scope="colgroup">Flipbook controls</th></tr>
+        <tr><th scope="row">Premium skin &amp; modern toolbar <small>thumbnails, contents, search</small></th><td class="is-no"><span aria-hidden="true">—</span><span class="screen-reader-text">Not included</span></td><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td></tr>
+        <tr><th scope="row">Page-flip sound &amp; autoplay</th><td class="is-no"><span aria-hidden="true">—</span><span class="screen-reader-text">Not included</span></td><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td></tr>
+        <tr><th scope="row">Single page or two-page spread</th><td class="is-no"><span aria-hidden="true">—</span><span class="screen-reader-text">Not included</span></td><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td></tr>
+        <tr><th scope="row">Zoom limits, background &amp; border colours</th><td class="is-no"><span aria-hidden="true">—</span><span class="screen-reader-text">Not included</span></td><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td></tr>
+        <tr><th scope="row">Show or hide Print, Share, Contents, Fullscreen, Download</th><td class="is-no"><span aria-hidden="true">—</span><span class="screen-reader-text">Not included</span></td><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td></tr>
+        <tr class="cmp-group"><th colspan="3" scope="colgroup">Support</th></tr>
+        <tr><th scope="row">Help</th><td class="is-text">WordPress.org forum</td><td class="is-text">Email support</td></tr>
+        <tr><th scope="row">Updates</th><td class="is-text">Free, from WordPress.org</td><td class="is-text">1 year, or lifetime</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="btn-row btn-row--center cmp-cta">
+    <a class="btn btn--outline" href="<?php echo esc_url( $download_url ); ?>">Download free</a>
+    <a class="btn btn--primary" href="<?php echo esc_url( $purchase_url ); ?>">Get Pro on Lieusoft</a>
+  </div>
+</section>
+
 <!-- ===== Pricing ===== -->
 <section class="section" id="pricing">
   <div class="eyebrow eyebrow--center">[ Pricing ]</div>
@@ -361,7 +447,59 @@ $contact_url  = 'mailto:hello@lieusoft.com';
       <a class="btn btn--primary btn--block" href="<?php echo esc_url( $purchase_url ); ?>">Buy on Lieusoft</a>
     </div>
   </div>
-  <p class="pricing-note">Yearly plans renew each year · Lifetime is a one-time payment · Prices in USD · Checkout on <a href="<?php echo esc_url( $purchase_url ); ?>">lieusoft.com</a></p>
+  <p class="pricing-note">Yearly plans renew each year · Lifetime is a one-time payment · Prices in USD · Checkout on <a href="<?php echo esc_url( $purchase_url ); ?>">lieusoft.com</a> · <a href="#compare">Compare plans</a> · <a href="#faq">FAQ</a></p>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="section" id="faq">
+  <div class="eyebrow eyebrow--center">[ FAQ ]</div>
+  <h2 class="centered-title">Questions, <span class="serif-i">answered.</span></h2>
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary>Is the free plugin really free?</summary>
+      <p>Yes. It's on WordPress.org with no limit on the number of PDFs, and includes the 3D flipbook, the scroll reader, all four archive layouts and the Elementor widgets.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Do I need Pro to show a flipbook?</summary>
+      <p>No. Every viewer feature works in the free plugin. Pro adds file protection, the premium skin and toolbar, extra flipbook controls and the phone layout.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Can visitors download my PDFs?</summary>
+      <p>With the free plugin you switch the Download button on or off for each PDF. With Pro's Hide File URL, downloads still work but go through one-time links and the real file path stays hidden. With Lockdown nobody can download at all.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What's the difference between Hide File URL and Lockdown?</summary>
+      <p>Both keep the file path out of the page. Hide File URL still lets readers download through a short-lived link. Lockdown removes downloads completely, moves the original into a locked folder, scrambles the file in transit and blocks print, save and right-click on the book.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Does Lockdown make copying impossible?</summary>
+      <p>It stops downloads, shared links, download managers and saving the page. Anything shown on a screen can still be screenshotted, so no web viewer can promise 100% — but Lockdown closes every easy route.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What happens if I turn Pro off or my licence ends?</summary>
+      <p>Your books keep working with the free plugin, like before. Protection and the other Pro options switch off until Pro is active again, and Lockdown comes back on its own when it is.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Does it work on phones?</summary>
+      <p>Yes. The scroll reader fits the screen on any phone, and Pro opens the flipbook one page at a time in a tall reading stage with the toolbar underneath.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Are Arabic, Urdu and Hebrew books supported?</summary>
+      <p>Yes. Mark a PDF as right-to-left and its pages turn the other way. This site's demo pages show Arabic, Urdu and Hebrew books.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Does it work with Elementor?</summary>
+      <p>Yes. Use the Archive and Single View widgets, build your own single PDF page from the Title, Cover, Details, Description, Download and Navigation widgets, and pick it as the template for every PDF. Elementor Pro Theme Builder templates work too.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Where are my files stored?</summary>
+      <p>In your own WordPress media library. PDFs render in the reader's browser — nothing is converted or uploaded to another service.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How do I get Pro?</summary>
+      <p>Choose a plan on lieusoft.com. You get a licence key; install the Pro add-on next to the free plugin and enter the key in PDF Embed → Settings.</p>
+    </details>
+  </div>
 </section>
 
 <!-- ===== CTA ===== -->

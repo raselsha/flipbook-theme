@@ -21,6 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
           <a href="<?php echo esc_url( home_url( '/#features' ) ); ?>">Features</a>
           <a href="<?php echo esc_url( home_url( '/#formats' ) ); ?>">Layouts</a>
           <a href="<?php echo esc_url( home_url( '/#pricing' ) ); ?>">Pricing</a>
+          <a href="<?php echo esc_url( home_url( '/#compare' ) ); ?>">Free vs Pro</a>
+          <a href="<?php echo esc_url( home_url( '/#faq' ) ); ?>">FAQ</a>
           <a href="https://lieusoft.com/pdf-embed-viewer/#pricing">Buy Pro</a>
           <a href="<?php $d = get_page_by_path( 'demo/flipbook' ); echo esc_url( $d ? get_permalink( $d ) : home_url( '/#live-demo' ) ); ?>">Live demo</a>
         </div>
