@@ -23,7 +23,7 @@ $demo_ebook_url      = $demo_ebook ? get_permalink( $demo_ebook ) : '#';
 $download_url = 'https://downloads.wordpress.org/plugin/pdf-embed-viewer.zip';
 $reviews_url  = 'https://wordpress.org/support/plugin/pdf-embed-viewer/reviews/';
 $purchase_url = 'https://lieusoft.com/pdf-embed-viewer/#pricing';
-$contact_url  = 'mailto:hello@lieusoft.com';
+$contact_url  = 'https://wa.me/8801521255463?text=' . rawurlencode( 'Hi, I need help with Flipbook PDF.' );
 ?>
 <main class="frame">
 
@@ -372,7 +372,7 @@ $contact_url  = 'mailto:hello@lieusoft.com';
         <tr><th scope="row">Zoom limits, background &amp; border colours</th><td class="is-no"><span aria-hidden="true">—</span><span class="screen-reader-text">Not included</span></td><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td></tr>
         <tr><th scope="row">Show or hide Print, Share, Contents, Fullscreen, Download</th><td class="is-no"><span aria-hidden="true">—</span><span class="screen-reader-text">Not included</span></td><td class="is-yes"><span aria-hidden="true">✓</span><span class="screen-reader-text">Included</span></td></tr>
         <tr class="cmp-group"><th colspan="3" scope="colgroup">Support</th></tr>
-        <tr><th scope="row">Help</th><td class="is-text">WordPress.org forum</td><td class="is-text">Email support</td></tr>
+        <tr><th scope="row">Help</th><td class="is-text">WordPress.org forum</td><td class="is-text">WhatsApp support</td></tr>
         <tr><th scope="row">Updates</th><td class="is-text">Free, from WordPress.org</td><td class="is-text">1 year, or lifetime</td></tr>
       </tbody>
     </table>
@@ -496,6 +496,10 @@ $contact_url  = 'mailto:hello@lieusoft.com';
       <p>In your own WordPress media library. PDFs render in the reader's browser — nothing is converted or uploaded to another service.</p>
     </details>
     <details class="faq-item">
+      <summary>How do I get support?</summary>
+      <p>Message us on <a href="<?php echo esc_url( $contact_url ); ?>" target="_blank" rel="noopener">WhatsApp (+880 1521-255463)</a> — that's the fastest way to reach us for setup help, questions or Pro licences.</p>
+    </details>
+    <details class="faq-item">
       <summary>How do I get Pro?</summary>
       <p>Choose a plan on lieusoft.com. You get a licence key; install the Pro add-on next to the free plugin and enter the key in PDF Embed → Settings.</p>
     </details>
@@ -510,7 +514,7 @@ $contact_url  = 'mailto:hello@lieusoft.com';
       <p>Free on WordPress.org. Works with WordPress 6.0+, GPLv2 or later.</p>
       <div class="btn-row btn-row--center">
         <a class="btn btn--primary btn--lg" href="<?php echo esc_url( $download_url ); ?>">Download free plugin</a>
-        <a class="btn btn--outline btn--lg" href="<?php echo esc_url( $contact_url ); ?>">Contact support</a>
+        <a class="btn btn--outline btn--lg" href="<?php echo esc_url( $contact_url ); ?>" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.36a9.9 9.9 0 0 0 4.62 1.15h.01c5.46 0 9.9-4.45 9.9-9.9C21.95 6.45 17.5 2 12.04 2Z"/></svg> Support on WhatsApp</a>
       </div>
     </div>
   </div>

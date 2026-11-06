@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
           <h4>Resources</h4>
           <a href="https://wordpress.org/plugins/pdf-embed-viewer/">WordPress.org</a>
           <a href="https://github.com/raselsha/pdf-embed-viewer">GitHub</a>
-          <a href="mailto:hello@lieusoft.com">Support</a>
+          <a href="https://wa.me/8801521255463?text=<?php echo rawurlencode( 'Hi, I need help with Flipbook PDF.' ); ?>" target="_blank" rel="noopener">Support (WhatsApp)</a>
           <a href="https://lieusoft.com/">Lieusoft</a>
         </div>
       </div>

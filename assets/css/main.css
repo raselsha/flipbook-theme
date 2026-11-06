@@ -616,6 +616,7 @@ code{font-family:var(--font-mono);font-size:0.88em;}
 .faq-item summary::after{content:"+";flex:none;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border:1px solid var(--rule);border-radius:50%;font-weight:400;font-size:1.1rem;color:var(--muted);transition:transform .2s ease;}
 .faq-item[open] summary::after{content:"−";color:var(--accent-text);border-color:var(--accent);}
 .faq-item summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:var(--r-md);}
+.faq-item p a{color:var(--accent-text);text-decoration:underline;text-underline-offset:3px;}
 .faq-item p{padding:0 20px 18px;font-size:0.96rem;line-height:1.65;color:var(--ink-2);}
 
 /* ===== Pricing ===== */
