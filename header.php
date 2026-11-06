@@ -45,7 +45,7 @@ $flipbook_theme_demo_subs = array(
       <a href="<?php echo esc_url( home_url( '/#how-it-works' ) ); ?>">How it works</a>
       <a href="<?php echo esc_url( home_url( '/#pricing' ) ); ?>">Pricing</a>
       <div class="nav-has-sub">
-        <a href="#" aria-haspopup="true">Demo <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5"/></svg></a>
+        <a href="#" aria-haspopup="true">Live Demo <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5"/></svg></a>
         <div class="nav-submenu">
           <?php foreach ( $flipbook_theme_demo_subs as $slug => $label ) :
               $sub_page = get_page_by_path( 'demo/' . $slug );

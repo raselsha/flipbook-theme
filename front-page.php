@@ -455,54 +455,12 @@ $contact_url  = 'https://wa.me/8801521255463?text=' . rawurlencode( 'Hi, I need 
   <div class="eyebrow eyebrow--center">[ FAQ ]</div>
   <h2 class="centered-title">Questions, <span class="serif-i">answered.</span></h2>
   <div class="faq-list">
+    <?php foreach ( flipbook_theme_faqs() as $flipbook_theme_faq ) : ?>
     <details class="faq-item">
-      <summary>Is the free plugin really free?</summary>
-      <p>Yes. It's on WordPress.org with no limit on the number of PDFs, and includes the 3D flipbook, the scroll reader, all four archive layouts and the Elementor widgets.</p>
+      <summary><?php echo esc_html( $flipbook_theme_faq[0] ); ?></summary>
+      <p><?php echo wp_kses( $flipbook_theme_faq[1], array( 'a' => array( 'href' => true, 'target' => true, 'rel' => true ) ) ); ?></p>
     </details>
-    <details class="faq-item">
-      <summary>Do I need Pro to show a flipbook?</summary>
-      <p>No. Every viewer feature works in the free plugin. Pro adds file protection, the premium skin and toolbar, extra flipbook controls and the phone layout.</p>
-    </details>
-    <details class="faq-item">
-      <summary>Can visitors download my PDFs?</summary>
-      <p>With the free plugin you switch the Download button on or off for each PDF. With Pro's Hide File URL, downloads still work but go through one-time links and the real file path stays hidden. With Lockdown nobody can download at all.</p>
-    </details>
-    <details class="faq-item">
-      <summary>What's the difference between Hide File URL and Lockdown?</summary>
-      <p>Both keep the file path out of the page. Hide File URL still lets readers download through a short-lived link. Lockdown removes downloads completely, moves the original into a locked folder, scrambles the file in transit and blocks print, save and right-click on the book.</p>
-    </details>
-    <details class="faq-item">
-      <summary>Does Lockdown make copying impossible?</summary>
-      <p>It stops downloads, shared links, download managers and saving the page. Anything shown on a screen can still be screenshotted, so no web viewer can promise 100% — but Lockdown closes every easy route.</p>
-    </details>
-    <details class="faq-item">
-      <summary>What happens if I turn Pro off or my licence ends?</summary>
-      <p>Your books keep working with the free plugin, like before. Protection and the other Pro options switch off until Pro is active again, and Lockdown comes back on its own when it is.</p>
-    </details>
-    <details class="faq-item">
-      <summary>Does it work on phones?</summary>
-      <p>Yes. The scroll reader fits the screen on any phone, and Pro opens the flipbook one page at a time in a tall reading stage with the toolbar underneath.</p>
-    </details>
-    <details class="faq-item">
-      <summary>Are Arabic, Urdu and Hebrew books supported?</summary>
-      <p>Yes. Mark a PDF as right-to-left and its pages turn the other way. This site's demo pages show Arabic, Urdu and Hebrew books.</p>
-    </details>
-    <details class="faq-item">
-      <summary>Does it work with Elementor?</summary>
-      <p>Yes. Use the Archive and Single View widgets, build your own single PDF page from the Title, Cover, Details, Description, Download and Navigation widgets, and pick it as the template for every PDF. Elementor Pro Theme Builder templates work too.</p>
-    </details>
-    <details class="faq-item">
-      <summary>Where are my files stored?</summary>
-      <p>In your own WordPress media library. PDFs render in the reader's browser — nothing is converted or uploaded to another service.</p>
-    </details>
-    <details class="faq-item">
-      <summary>How do I get support?</summary>
-      <p>Message us on <a href="<?php echo esc_url( $contact_url ); ?>" target="_blank" rel="noopener">WhatsApp (+880 1521-255463)</a> — that's the fastest way to reach us for setup help, questions or Pro licences.</p>
-    </details>
-    <details class="faq-item">
-      <summary>How do I get Pro?</summary>
-      <p>Choose a plan on lieusoft.com. You get a licence key; install the Pro add-on next to the free plugin and enter the key in PDF Embed → Settings.</p>
-    </details>
+    <?php endforeach; ?>
   </div>
 </section>
 
