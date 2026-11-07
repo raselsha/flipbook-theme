@@ -45,7 +45,10 @@
     if (!chrome) return;
     var n = parseInt(spread, 10) || 2, total = parseInt(chrome.getAttribute('data-total'), 10) || 10;
     chrome.querySelector('[data-page]').textContent = n;
-    chrome.style.setProperty('--progress', Math.min(100, Math.max(0, (n - 1) / Math.max(1, total - 1) * 100)) + '%');
+    var pct = Math.min(100, Math.max(0, (n - 1) / Math.max(1, total - 1) * 100));
+    // Right-to-left books read from the right, so the slider runs the other way.
+    if (book.classList.contains('tour-book--rtl')) pct = 100 - pct;
+    chrome.style.setProperty('--progress', pct + '%');
     $$('[data-fx="first"],[data-fx="prev"]', chrome).forEach(function (b) { b.classList.toggle('is-off', n <= 1); });
     if (book.offsetWidth) stage.style.setProperty('--chrome-w', book.offsetWidth + 'px');
   }
