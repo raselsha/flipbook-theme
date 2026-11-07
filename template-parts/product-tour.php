@@ -41,7 +41,10 @@ if ( ! $featured ) {
 }
 // The RTL pages carry Arabic text, so prefer a book whose title is Arabic.
 $rtl_doc = null;
-foreach ( $rtl as $item ) {
+foreach ( $rtl as $item ) { // an Arabic-category book first (Urdu shares the script)
+    if ( has_term( 'arabic', 'pdfev_category', $item['id'] ) ) { $rtl_doc = $item; break; }
+}
+foreach ( $rtl_doc ? array() : $rtl as $item ) {
     if ( preg_match( '/\p{Arabic}/u', $item['title'] ) ) { $rtl_doc = $item; break; }
 }
 if ( ! $rtl_doc && $rtl ) {
