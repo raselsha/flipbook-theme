@@ -74,7 +74,11 @@ $steps = array(
     array( 'layouts',  'settings', 'layouts',  4200, 'Four archive layouts',    'Grid, list, newsletter or an e-book shelf.' ),
     array( 'shelf',    'shelf',    'shelf',    3800, 'A library, not a list',   'Covers, read counts and buttons for every PDF.' ),
     array( 'rtl',      'rtl',      'rtl-book', 4600, 'Right-to-left books',     'Arabic, Urdu and Hebrew turn from right to left.' ),
-    array( 'lock',     'site',     'lock',     4200, 'Lockdown (Pro)',          'Readers flip every page. Nobody can download the file.' ),
+    array( 'protect',  'pro-protect', 'protect', 4600, 'Protect your PDFs',     'Choose how files reach readers: a hidden link, or full Lockdown.', true ),
+    array( 'lock',     'site',     'lock',     4200, 'Lockdown',                'Readers flip every page. Nobody can download, print or save the file.', true ),
+    array( 'viewer',   'pro-viewer', 'viewer', 4800, 'Viewer controls',         'Switch print, download and sharing on or off, and pick a skin.', true ),
+    array( 'studio',   'site',     'stage',    4600, 'Your brand colors',       'The Studio Light skin with your own stage and toolbar colors.', true ),
+    array( 'license',  'pro-license', 'license', 4400, 'Activate your license', 'Paste your license key and Pro switches on, instantly.', true ),
 );
 $urls = array(
     'library'  => 'yoursite.com/wp-admin/edit.php?post_type=pdf',
@@ -82,6 +86,9 @@ $urls = array(
     'page'     => 'yoursite.com/wp-admin/post-new.php?post_type=page',
     'site'     => 'yoursite.com/' . $featured['slug'],
     'settings' => 'yoursite.com/wp-admin/admin.php?page=pdf-settings',
+    'pro-protect' => 'yoursite.com/wp-admin/admin.php?page=pdf-settings#protection',
+    'pro-viewer'  => 'yoursite.com/wp-admin/admin.php?page=pdf-settings#flipbook',
+    'pro-license' => 'yoursite.com/wp-admin/admin.php?page=pdf-settings#license',
     'shelf'    => 'yoursite.com/library',
     'rtl'      => 'yoursite.com/' . ( $rtl_doc ? $rtl_doc['slug'] : 'kalila-wa-dimna' ),
 );
@@ -132,6 +139,19 @@ $page_html = function ( $n, $is_rtl, $doc ) use ( $cover ) {
             return '<span class="tour-k tour-k--r">Page 5</span>' . $cover( $doc, 'tour-photo tour-photo--tall' )
                 . '<span class="tour-cap">The great court, photographed at eight in the morning.</span>';
     }
+};
+
+/** The plugin's settings page around one section ($nav = active item). */
+$settings_shell = function ( $nav, $inner ) use ( $admin_menu ) {
+    $items = array(
+        'archive' => array( 'Archive Page', false ), 'display' => array( 'Display &amp; Behavior', false ), 'colors' => array( 'Brand Colors', false ),
+        'protect' => array( 'PDF URL Protection', true ), 'flipbook' => array( 'Flipbook', true ), 'license' => array( 'Manage License', true ),
+    );
+    $out = $admin_menu( 'settings' ) . '<div class="tour-wpmain"><div class="tour-sethead"><span class="tour-seticon">▤</span><b>PDF Embed Viewer</b><span class="tour-ver">v1.5.7</span><span class="tour-btn">Save Changes</span></div><div class="tour-setbody"><div class="tour-setnav">';
+    foreach ( $items as $key => $item ) {
+        $out .= '<span' . ( $key === $nav ? ' class="is-active"' : '' ) . '>' . $item[0] . ( $item[1] ? ' <em class="tour-pro">PRO</em>' : '' ) . '</span>';
+    }
+    return $out . '</div><div class="tour-setmain">' . $inner . '</div></div></div>';
 };
 
 /**
@@ -251,27 +271,61 @@ $book = function ( $doc, $is_rtl ) use ( $page_html, $pages ) {
         <div class="tour-sitebar"><b>◆ Your Site</b><span>Home</span><span>Library</span><span>About</span></div>
         <div class="tour-sitehead"><small>MAGAZINE · <?php echo (int) $pages; ?> PAGES</small><h3><?php echo esc_html( $featured['title'] ); ?></h3>
           <span class="tour-lockbadge" data-tour-target="lock">🔒 Lockdown <small>No download · file link hidden</small></span></div>
-        <div class="tour-stage"><?php echo $book( $featured, false ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
+        <div class="tour-stage" data-tour-target="stage"><?php echo $book( $featured, false ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
       </section>
 
-      <!-- 8. Settings -->
+      <!-- 8. Settings: archive layout -->
       <section class="tour-screen tour-admin" data-screen="settings">
-        <?php echo $admin_menu( 'settings' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-        <div class="tour-wpmain">
-          <div class="tour-sethead"><span class="tour-seticon">▤</span><b>PDF Embed Viewer</b><span class="tour-ver">v1.5.7</span><span class="tour-btn">Save Changes</span></div>
-          <div class="tour-setbody">
-            <div class="tour-setnav"><span class="is-active">Archive Page</span><span>Elementor</span><span>Display &amp; Behavior</span><span>Book Details</span><span>Brand Colors</span></div>
-            <div class="tour-setmain">
-              <b>Archive Template</b><small>How your PDF library is laid out.</small>
-              <div class="tour-layouts" data-tour-target="layouts">
-                <span class="tour-layout is-sel"><i class="tour-lo tour-lo--grid"></i>Grid</span>
-                <span class="tour-layout"><i class="tour-lo tour-lo--list"></i>List</span>
-                <span class="tour-layout"><i class="tour-lo tour-lo--news"></i>Newsletter</span>
-                <span class="tour-layout"><i class="tour-lo tour-lo--shelf"></i>E-Book</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <?php
+        echo $settings_shell( 'archive', '<b>Archive Template</b><small>How your PDF library is laid out.</small>'
+            . '<div class="tour-layouts" data-tour-target="layouts">'
+            . '<span class="tour-layout is-sel"><i class="tour-lo tour-lo--grid"></i>Grid</span>'
+            . '<span class="tour-layout"><i class="tour-lo tour-lo--list"></i>List</span>'
+            . '<span class="tour-layout"><i class="tour-lo tour-lo--news"></i>Newsletter</span>'
+            . '<span class="tour-layout"><i class="tour-lo tour-lo--shelf"></i>E-Book</span></div>' ); // phpcs:ignore WordPress.Security.EscapeOutput -- static markup
+        ?>
+      </section>
+
+      <!-- Pro: PDF URL Protection -->
+      <section class="tour-screen tour-admin" data-screen="pro-protect">
+        <?php
+        echo $settings_shell( 'protect', '<b>PDF URL Protection</b><small>Control how PDF files are delivered to visitors.</small>'
+            . '<div class="tour-radios" data-tour-target="protect">'
+            . '<span class="tour-radio is-sel"><i></i><span><b>Direct URL</b><small>The file link sits in the page, as in the free plugin.</small></span></span>'
+            . '<span class="tour-radio"><i></i><span><b>Hide File URL <em class="tour-pro">PRO</em></b><small>No file path in the page; the viewer fetches a short-lived link.</small></span></span>'
+            . '<span class="tour-radio"><i></i><span><b>Lockdown — no downloads <em class="tour-pro">PRO</em></b><small>Locked folder, single-use links, scrambled bytes. No download, print or save.</small></span></span>'
+            . '</div>' ); // phpcs:ignore WordPress.Security.EscapeOutput -- static markup
+        ?>
+      </section>
+
+      <!-- Pro: Flipbook viewer options -->
+      <section class="tour-screen tour-admin" data-screen="pro-viewer">
+        <?php
+        $toggles = array( 'Page-flip sound' => 1, 'Autoplay' => 0, 'Print' => 1, 'Full screen' => 1, 'Download' => 1, 'Share' => 1 );
+        $t_html  = '';
+        foreach ( $toggles as $label => $on ) {
+            $t_html .= '<span class="tour-toggle' . ( $on ? ' is-on' : '' ) . '" data-toggle="' . esc_attr( strtolower( strtok( $label, ' -' ) ) ) . '"><i></i>' . esc_html( $label ) . '</span>';
+        }
+        echo $settings_shell( 'flipbook', '<b>Flipbook</b><small>Fine-tune how the 3D flipbook viewer looks and behaves.</small>'
+            . '<div class="tour-viewer" data-tour-target="viewer">'
+            . '<div class="tour-toggles">' . $t_html . '</div>'
+            . '<div class="tour-field"><span>Theme / Skin</span><span class="tour-select" data-skin data-skin-to="Premium — Studio Light">Dark, Compact Toolbar</span></div>'
+            . '<div class="tour-field"><span>Page Mode</span><span class="tour-seg"><i>Single Page</i><i class="is-sel">Two-Page Spread</i></span></div>'
+            . '<div class="tour-field"><span>Book Style</span><span class="tour-select">Volume</span></div>'
+            . '</div>' ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped above
+        ?>
+      </section>
+
+      <!-- Pro: license -->
+      <section class="tour-screen tour-admin" data-screen="pro-license">
+        <?php
+        echo $settings_shell( 'license', '<b>Manage License</b><small>Activate, deactivate, or refresh your Pro license key.</small>'
+            . '<div class="tour-license" data-tour-target="license">'
+            . '<span class="tour-license__label">License Key</span>'
+            . '<div class="tour-keyrow"><code data-key="A1F4C9E2-7B3D5E61-C08A92F4-3E7D1B56"></code><span class="tour-btn tour-btn--ui" data-activate>Activate</span></div>'
+            . '<span class="tour-status"><i></i>Active <small>· Expires ' . esc_html( gmdate( 'Y-m-d', strtotime( '+1 year' ) ) ) . '</small></span>'
+            . '</div>' ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped above
+        ?>
       </section>
 
       <!-- 9. Library shelf -->
@@ -303,8 +357,8 @@ $book = function ( $doc, $is_rtl ) use ( $page_html, $pages ) {
 
   <div class="tour-steps" role="tablist" aria-label="<?php esc_attr_e( 'Tour steps', 'flipbook-theme' ); ?>">
     <?php foreach ( $steps as $i => $s ) : ?>
-      <button type="button" class="tour-step" role="tab" data-step="<?php echo esc_attr( $s[0] ); ?>" data-screen="<?php echo esc_attr( $s[1] ); ?>" data-target="<?php echo esc_attr( $s[2] ); ?>" data-ms="<?php echo (int) $s[3]; ?>" data-title="<?php echo esc_attr( $s[4] ); ?>" data-text="<?php echo esc_attr( $s[5] ); ?>">
-        <span class="tour-step__n"><?php echo (int) $i + 1; ?></span><span class="tour-step__t"><?php echo esc_html( $s[4] ); ?></span><i class="tour-step__bar"></i>
+      <button type="button" class="tour-step" role="tab" data-step="<?php echo esc_attr( $s[0] ); ?>" data-screen="<?php echo esc_attr( $s[1] ); ?>" data-target="<?php echo esc_attr( $s[2] ); ?>" data-ms="<?php echo (int) $s[3]; ?>" data-title="<?php echo esc_attr( $s[4] . ( empty( $s[6] ) ? '' : ' (Pro)' ) ); ?>" data-text="<?php echo esc_attr( $s[5] ); ?>">
+        <span class="tour-step__n"><?php echo (int) $i + 1; ?></span><span class="tour-step__t"><?php echo esc_html( $s[4] ); ?></span><?php if ( ! empty( $s[6] ) ) : ?><em class="tour-pro">PRO</em><?php endif; ?><i class="tour-step__bar"></i>
       </button>
     <?php endforeach; ?>
   </div>

@@ -24,6 +24,15 @@
   function screen(name) { return $('[data-screen="' + name + '"]'); }
   function later(fn, ms) { timers.push(setTimeout(fn, reduce ? Math.min(ms, 50) : ms)); }
   function every(fn, ms) { var t = setInterval(fn, ms); timers.push({ i: t }); }
+  // Types text into el at ~ms per character, by elapsed time; calls done() at the end.
+  function type(el, text, ms, done) {
+    var t0 = Date.now();
+    every(function () {
+      var n = Math.min(text.length, Math.floor((Date.now() - t0) / ms));
+      if (el.textContent.length !== n) el.textContent = text.slice(0, n);
+      if (n >= text.length && done) { var d = done; done = null; d(); }
+    }, 30);
+  }
   function clearLater() {
     timers.forEach(function (t) { if (t && t.i) clearInterval(t.i); else clearTimeout(t); });
     timers = [];
@@ -48,10 +57,26 @@
     copy.textContent = copy.getAttribute('data-copy-label');
     if (typed) typed.textContent = id === 'paste' ? '' : typed.getAttribute('data-type');
 
-    var flipped = id === 'toolbar' || id === 'lock';
+    var flipped = id === 'toolbar' || id === 'lock' || id === 'studio';
     if (book) { book.classList.toggle('is-flipped', flipped); setCount(book, flipped ? '4–5' : '2–3'); }
     if (rtlBook) { rtlBook.classList.remove('is-flipped'); setCount(rtlBook, '2–3'); }
     site.classList.toggle('is-locked', id === 'lock');
+    site.classList.toggle('is-studio', id === 'studio');
+    site.style.removeProperty('--studio-bg');
+
+    // Pro settings
+    $$('.tour-radio').forEach(function (r, k) { r.classList.toggle('is-sel', k === 0); });
+    $$('.tour-toggle').forEach(function (t) {
+      t.classList.toggle('is-on', t.getAttribute('data-toggle') !== 'autoplay');
+    });
+    var skin = $('[data-skin]');
+    if (skin) {
+      if (!skin.hasAttribute('data-skin-orig')) skin.setAttribute('data-skin-orig', skin.textContent);
+      skin.classList.remove('is-changed');
+      skin.textContent = skin.getAttribute('data-skin-orig');
+    }
+    var lic = $('.tour-license'), key = $('[data-key]');
+    if (lic) { lic.classList.remove('is-active'); key.textContent = ''; $('[data-activate]').classList.remove('is-pressed'); }
     $$('.tour-layout').forEach(function (l, k) { l.classList.toggle('is-sel', k === 0); });
     $$('.tour-shelfitem').forEach(function (s) { s.classList.remove('is-lift'); });
   }
@@ -72,10 +97,8 @@
       var copy = $('.tour-copy');
       later(function () { copy.classList.add('is-copied'); copy.textContent = copy.getAttribute('data-copied-label'); }, 1300);
     } else if (id === 'paste') {
-      var el = $('[data-type]'), text = el.getAttribute('data-type'), n = 0;
-      later(function () {
-        every(function () { if (n <= text.length) el.textContent = text.slice(0, n++); }, 55);
-      }, 600);
+      var el = $('[data-type]');
+      later(function () { type(el, el.getAttribute('data-type'), 55); }, 600);
     } else if (id === 'flip' || id === 'rtl') {
       var book = $(id === 'flip' ? '.tour-book--ltr' : '.tour-book--rtl');
       later(function () { book.classList.add('is-flipped'); }, 1000);
@@ -83,6 +106,26 @@
     } else if (id === 'layouts') {
       var cards = $$('.tour-layout'), k = 0;
       every(function () { k = (k + 1) % cards.length; cards.forEach(function (c, j) { c.classList.toggle('is-sel', j === k); }); }, 950);
+    } else if (id === 'protect') {
+      var radios = $$('.tour-radio');
+      later(function () { radios.forEach(function (r, j) { r.classList.toggle('is-sel', j === 1); }); }, 1300);
+      later(function () { radios.forEach(function (r, j) { r.classList.toggle('is-sel', j === 2); }); }, 2700);
+    } else if (id === 'viewer') {
+      var tg = function (name) { return $('.tour-toggle[data-toggle="' + name + '"]'); };
+      later(function () { tg('download').classList.remove('is-on'); }, 1100);
+      later(function () { tg('print').classList.remove('is-on'); }, 1800);
+      later(function () { var sk = $('[data-skin]'); sk.textContent = sk.getAttribute('data-skin-to'); sk.classList.add('is-changed'); }, 2700);
+    } else if (id === 'studio') {
+      var siteEl = screen('site'), colors = ['#efe9fb', '#e6f0ff', '#fdf0f5', '#eef7ee'], c = 0;
+      every(function () { c = (c + 1) % colors.length; siteEl.style.setProperty('--studio-bg', colors[c]); }, 1100);
+    } else if (id === 'license') {
+      var licEl = $('.tour-license'), keyEl = $('[data-key]'), btn = $('[data-activate]');
+      later(function () {
+        type(keyEl, keyEl.getAttribute('data-key'), 36, function () {
+          later(function () { btn.classList.add('is-pressed'); }, 300);
+          later(function () { btn.classList.remove('is-pressed'); licEl.classList.add('is-active'); }, 600);
+        });
+      }, 500);
     } else if (id === 'shelf') {
       var items = $$('.tour-shelfitem'), s = -1;
       every(function () { s = (s + 1) % items.length; items.forEach(function (it, j) { it.classList.toggle('is-lift', j === s); }); }, 520);
