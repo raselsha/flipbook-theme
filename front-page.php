@@ -403,7 +403,7 @@ $contact_url  = 'https://wa.me/8801521255463?text=' . rawurlencode( 'Hi, I need 
     </div>
     <div class="price-card reveal">
       <div class="price-name">Pro Single</div>
-      <div class="price-value"><strong>$22</strong><span>/ year</span></div>
+      <div class="price-value"><strong>$29</strong><span>/ year</span></div>
       <p class="price-sites">1 domain</p>
       <p class="price-desc">For one site that wants a premium, on-brand reading experience.</p>
       <ul class="price-features">
@@ -418,7 +418,7 @@ $contact_url  = 'https://wa.me/8801521255463?text=' . rawurlencode( 'Hi, I need 
     </div>
     <div class="price-card price-card--lifetime reveal">
       <div class="price-top"><span class="price-name">Lifetime</span><span class="price-badge">Pay once</span></div>
-      <div class="price-value"><strong>$49</strong><span>/ one-time</span></div>
+      <div class="price-value"><strong>$79</strong><span>/ one-time</span></div>
       <p class="price-sites">1 domain</p>
       <p class="price-desc">Pay once for one site and keep it for life.</p>
       <ul class="price-features">
