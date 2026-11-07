@@ -246,12 +246,74 @@ code{font-family:var(--font-mono);font-size:0.88em;}
 
 /* ===== Hero ===== */
 .hero{position:relative;padding:88px var(--gutter) 0;}
-.hero-grid{
-  position:absolute;inset:0;pointer-events:none;
-  background-image:linear-gradient(#e6e2e5 1px, transparent 1px), linear-gradient(90deg, #e6e2e5 1px, transparent 1px);
-  background-size:24px 24px;
-  -webkit-mask-image:radial-gradient(ellipse at 15% 62%, #000 0%, transparent 55%);
-  mask-image:radial-gradient(ellipse at 15% 62%, #000 0%, transparent 55%);
+/* Hero backdrop (ThriveDesk-style), markup from flipbook_theme_hero_fx():
+   a drifting dither texture seen through a 6px dot screen (always on), a
+   32px hairline grid, and grey/violet cells plus violet dot clusters that
+   twinkle while the pointer is over the hero (always on touch screens). */
+.hero-fx{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+.hero-fx__box{position:absolute;top:-8px;left:50%;width:1664px;height:800px;transform:translateX(-50%);}
+.hero-fx__box > *{position:absolute;inset:0;}
+.hero-fx__dither{
+  opacity:.8;
+  -webkit-mask:radial-gradient(#000 1px, transparent 1px) 0 0/6px 6px, linear-gradient(#000, transparent 70%);
+  -webkit-mask-composite:source-in;
+  mask:radial-gradient(#000 1px, transparent 1px) 0 0/6px 6px, linear-gradient(#000, transparent 70%);
+  mask-composite:intersect;
+}
+.hero-fx__dither > i{
+  position:absolute;top:-512px;left:-512px;right:0;bottom:0;
+  background:var(--ink);opacity:.2;
+  -webkit-mask:var(--grain) 0 0/512px 512px;mask:var(--grain) 0 0/512px 512px;
+  animation:hero-fx-drift 18s linear infinite;will-change:transform;
+}
+.hero-fx__tint{
+  background:var(--accent);opacity:0;transition:opacity .3s ease-out;
+  -webkit-mask:radial-gradient(#000 1px, transparent 1px) 0 0/6px 6px, linear-gradient(#000 45%, transparent);
+  -webkit-mask-composite:source-in;
+  mask:radial-gradient(#000 1px, transparent 1px) 0 0/6px 6px, linear-gradient(#000 45%, transparent);
+  mask-composite:intersect;
+}
+.hero-fx__lines{
+  background-image:linear-gradient(rgba(var(--ink-rgb),.075) 1px, transparent 1px), linear-gradient(90deg, rgba(var(--ink-rgb),.075) 1px, transparent 1px);
+  background-size:32px 32px;background-position:-1px -1px;
+  -webkit-mask-image:linear-gradient(transparent 4%, #000 40%, #000 70%, transparent 98%);
+  mask-image:linear-gradient(transparent 4%, #000 40%, #000 70%, transparent 98%);
+}
+.hero-fx__cells,.hero-fx__dots{opacity:0;transition:opacity .3s ease-out;}
+.hero-fx__cells--accent{--fx-on:.3;}
+.hero-fx__cells > i,.hero-fx__dots > i{
+  position:absolute;left:var(--x);top:var(--y);opacity:0;
+  animation:hero-fx-twinkle 9s ease-in-out infinite;animation-play-state:paused;
+}
+.hero-fx__cells > i{width:31px;height:31px;}
+.hero-fx__cells--grey > i{background:rgba(var(--ink-rgb),.065);}
+.hero-fx__cells--accent > i{background:var(--accent);}
+.hero-fx__dots{
+  -webkit-mask:radial-gradient(#000 1px, transparent 1px) 0 0/6px 6px;
+  mask:radial-gradient(#000 1px, transparent 1px) 0 0/6px 6px;
+}
+.hero-fx__dots > i{width:30px;height:30px;background:radial-gradient(circle, var(--accent) 40%, transparent 70%);}
+.hero-fx__cells > i:nth-child(3n),.hero-fx__dots > i:nth-child(3n){animation-duration:13s;}
+.hero-fx__cells > i:nth-child(3n+1),.hero-fx__dots > i:nth-child(3n+1){animation-duration:6s;}
+.hero-fx__cells > i:nth-child(7n+1),.hero-fx__dots > i:nth-child(7n+1){animation-delay:-1.7s;}
+.hero-fx__cells > i:nth-child(7n+2),.hero-fx__dots > i:nth-child(7n+2){animation-delay:-3.4s;}
+.hero-fx__cells > i:nth-child(7n+3),.hero-fx__dots > i:nth-child(7n+3){animation-delay:-5.1s;}
+.hero-fx__cells > i:nth-child(7n+4),.hero-fx__dots > i:nth-child(7n+4){animation-delay:-6.8s;}
+.hero-fx__cells > i:nth-child(7n+5),.hero-fx__dots > i:nth-child(7n+5){animation-delay:-8.5s;}
+.hero-fx__cells > i:nth-child(7n+6),.hero-fx__dots > i:nth-child(7n+6){animation-delay:-10.2s;}
+.hero:hover .hero-fx__cells,.hero:hover .hero-fx__dots,
+.hero:focus-within .hero-fx__cells,.hero:focus-within .hero-fx__dots{opacity:1;}
+.hero:hover .hero-fx__tint,.hero:focus-within .hero-fx__tint{opacity:.09;}
+.hero:hover .hero-fx__cells > i,.hero:hover .hero-fx__dots > i,
+.hero:focus-within .hero-fx__cells > i,.hero:focus-within .hero-fx__dots > i{animation-play-state:running;}
+@media (hover:none){
+  .hero-fx__cells,.hero-fx__dots{opacity:1;}
+  .hero-fx__cells > i,.hero-fx__dots > i{animation-play-state:running;}
+}
+@keyframes hero-fx-twinkle{0%,100%{opacity:0;}50%{opacity:var(--fx-on,1);}}
+@keyframes hero-fx-drift{to{transform:translate(512px,512px);}}
+@media (prefers-reduced-motion:reduce){
+  .hero-fx__dither > i,.hero-fx__cells > i,.hero-fx__dots > i{animation:none;}
 }
 /* Watercolour smears: a soft violet wash with a halftone stipple on top. */
 .paint{position:absolute;pointer-events:none;border-radius:48% 52% 40% 60%;}

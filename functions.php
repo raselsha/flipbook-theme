@@ -115,3 +115,45 @@ function flipbook_theme_customize_preview_js() {
     " );
 }
 add_action( 'customize_preview_init', 'flipbook_theme_customize_preview_js' );
+
+/**
+ * Hero backdrop: a 32px grid with cells and accent dots that twinkle
+ * (ThriveDesk-style), drawn entirely with CSS (.hero-fx in main.css). The
+ * positions are pseudo-random but seeded, so every page load renders the
+ * same markup and full-page caching keeps working.
+ */
+function flipbook_theme_hero_fx() {
+    $cell = 32;
+    $cols = 52;   // 52 x 32 = 1664px wide box, centred on the hero
+    mt_srand( 20261107 );
+    $pick_cells = function ( $count, $rows_from, $rows_to ) use ( $cols, $cell ) {
+        static $taken = array();
+        $out = array();
+        while ( count( $out ) < $count ) {
+            $key = mt_rand( 0, $cols - 1 ) . ':' . mt_rand( $rows_from, $rows_to );
+            if ( isset( $taken[ $key ] ) ) {
+                continue;
+            }
+            $taken[ $key ] = true;
+            list( $c, $r ) = explode( ':', $key );
+            $out[] = sprintf( '<i style="--x:%dpx;--y:%dpx"></i>', $c * $cell, $r * $cell );
+        }
+        return implode( '', $out );
+    };
+    $grey   = $pick_cells( 26, 1, 23 );
+    $accent = $pick_cells( 18, 1, 23 );
+    $dots   = array();
+    for ( $i = 0; $i < 44; $i++ ) {
+        $dots[] = sprintf( '<i style="--x:%dpx;--y:%dpx"></i>', mt_rand( 0, 272 ) * 6, mt_rand( 2, 126 ) * 6 );
+    }
+    mt_srand(); // hand the generator back unseeded
+
+    return '<div class="hero-fx" aria-hidden="true"><div class="hero-fx__box">'
+        . '<div class="hero-fx__dither"><i></i></div>'
+        . '<div class="hero-fx__tint"></div>'
+        . '<div class="hero-fx__lines"></div>'
+        . '<div class="hero-fx__cells hero-fx__cells--grey">' . $grey . '</div>'
+        . '<div class="hero-fx__cells hero-fx__cells--accent">' . $accent . '</div>'
+        . '<div class="hero-fx__dots">' . implode( '', $dots ) . '</div>'
+        . '</div></div>';
+}

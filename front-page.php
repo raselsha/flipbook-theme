@@ -29,7 +29,7 @@ $contact_url  = 'https://wa.me/8801521255463?text=' . rawurlencode( 'Hi, I need 
 
 <!-- ===== Hero ===== -->
 <section class="hero">
-  <div class="hero-grid" aria-hidden="true"></div>
+  <?php echo flipbook_theme_hero_fx(); // phpcs:ignore WordPress.Security.EscapeOutput -- static markup built above ?>
   <div class="paint paint--left" aria-hidden="true"></div>
   <div class="paint paint--right" aria-hidden="true"></div>
 
