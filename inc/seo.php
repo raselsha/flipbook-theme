@@ -267,7 +267,7 @@ function flipbook_theme_schema_graph( $desc, $url, $img ) {
                 array( '@type' => 'Offer', 'name' => 'Free', 'price' => '0', 'priceCurrency' => 'USD', 'url' => 'https://wordpress.org/plugins/pdf-embed-viewer/' ),
                 array( '@type' => 'Offer', 'name' => 'Pro Single (1 domain, yearly)', 'price' => '22', 'priceCurrency' => 'USD', 'url' => 'https://lieusoft.com/pdf-embed-viewer/#pricing' ),
                 array( '@type' => 'Offer', 'name' => 'Pro 10 (10 domains, yearly)', 'price' => '49', 'priceCurrency' => 'USD', 'url' => 'https://lieusoft.com/pdf-embed-viewer/#pricing' ),
-                array( '@type' => 'Offer', 'name' => 'Lifetime (1 domain)', 'price' => '79', 'priceCurrency' => 'USD', 'url' => 'https://lieusoft.com/pdf-embed-viewer/#pricing' ),
+                array( '@type' => 'Offer', 'name' => 'Lifetime (1 domain)', 'price' => '49', 'priceCurrency' => 'USD', 'url' => 'https://lieusoft.com/pdf-embed-viewer/#pricing' ),
             ),
             // Real WordPress.org rating at the time of writing.
             'aggregateRating'     => array( '@type' => 'AggregateRating', 'ratingValue' => '5', 'ratingCount' => '6', 'bestRating' => '5' ),
