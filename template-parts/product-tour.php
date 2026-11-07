@@ -50,6 +50,40 @@ foreach ( $rtl_doc ? array() : $rtl as $item ) {
 if ( ! $rtl_doc && $rtl ) {
     $rtl_doc = $rtl[0];
 }
+// Real page renders (assets/img/tour/) for the demo's own books; any other
+// book falls back to drawn pages.
+$tour_img = get_template_directory_uri() . '/assets/img/tour/';
+$real_ltr = ( 'concrete-light-and-structure' === $featured['slug'] ) ? 'concrete' : '';
+$real_rtl = ( $rtl_doc && 'kalila-asad-thawr' === $rtl_doc['slug'] ) ? 'arabic' : '';
+$page_img = function ( $set, $n ) use ( $tour_img ) {
+    return '<img class="tour-pimg" src="' . esc_url( $tour_img . $set . '-0' . (int) $n . '.webp' ) . '" alt="" loading="lazy" decoding="async">';
+};
+// The Pro viewer chrome's icons (pdf-embed-viewer-pro/assets/js/flipa-toolbar.js).
+$ico = array(
+    'first'  => '<path d="M18 6l-6 6 6 6"/><path d="M12 6l-6 6 6 6"/>',
+    'prev'   => '<path d="M14 6l-6 6 6 6"/>',
+    'next'   => '<path d="M10 6l6 6-6 6"/>',
+    'last'   => '<path d="M6 6l6 6-6 6"/><path d="M12 6l6 6-6 6"/>',
+    'up'     => '<path d="M6 10l6-6 6 6"/>',
+    'down'   => '<path d="M6 14l6 6 6-6"/>',
+    'side'   => '<path d="M9 8l-3.5 4 3.5 4"/><path d="M15 8l3.5 4-3.5 4"/>',
+    'grid'   => '<rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/>',
+    'search' => '<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>',
+    'chev'   => '<path d="M6 9l6 6 6-6"/>',
+    'expand' => '<path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/>',
+    'more'   => '<circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/>',
+    'play'   => '<path d="M8 5l11 7-11 7z"/>',
+    'share'  => '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/>',
+    'print'  => '<path d="M6 9V3h12v6M6 18H4v-6h16v6h-2"/><rect x="8" y="14" width="8" height="7" rx="1"/>',
+    'dl'     => '<path d="M12 3v12M7 11l5 5 5-5M5 21h14"/>',
+    'sun'    => '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    'close'  => '<path d="M18 6L6 18M6 6l12 12"/>',
+    'lock'   => '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+);
+$svg = function ( $name ) use ( $ico ) {
+    return '<svg viewBox="0 0 24 24" aria-hidden="true">' . $ico[ $name ] . '</svg>';
+};
+
 $size_mb = $featured['size'] ? number_format_i18n( $featured['size'] / 1048576, 1 ) . ' MB' : '2.4 MB';
 $file    = $featured['slug'] . '.pdf';
 $code    = '[pdfev_embed_viewer id="' . (int) $featured['id'] . '"]';
@@ -70,7 +104,7 @@ $steps = array(
     array( 'copy',     'editor',   'code',     3400, 'Copy the shortcode',      'One line, ready for any post, page or widget.' ),
     array( 'paste',    'page',     'block',    4200, 'Paste it anywhere',       'Block editor, Classic editor or the Elementor widget.' ),
     array( 'flip',     'site',     'book',     4600, 'Your PDF, as a real book', 'Pages turn like paper. Drag a corner or tap the arrows.' ),
-    array( 'toolbar',  'site',     'toolbar',  3400, 'Everything readers need', 'Zoom, table of contents, full screen and a page counter.' ),
+    array( 'toolbar',  'site',     'stage',    4600, 'Everything readers need', 'Page slider, thumbnails, zoom, dark mode and full screen.' ),
     array( 'layouts',  'settings', 'layouts',  4200, 'Four archive layouts',    'Grid, list, newsletter or an e-book shelf.' ),
     array( 'shelf',    'shelf',    'shelf',    3800, 'A library, not a list',   'Covers, read counts and buttons for every PDF.' ),
     array( 'rtl',      'rtl',      'rtl-book', 4600, 'Right-to-left books',     'Arabic, Urdu and Hebrew turn from right to left.' ),
@@ -159,24 +193,61 @@ $settings_shell = function ( $nav, $inner ) use ( $admin_menu ) {
  * leaf on the other side turns over it (front = page 3, back = page 4) and
  * uncovers page 5 underneath. LTR turns right-to-left, RTL the other way.
  */
-$book = function ( $doc, $is_rtl ) use ( $page_html, $pages ) {
+$book = function ( $doc, $is_rtl ) use ( $page_html, $pages, $page_img, $svg, $real_ltr, $real_rtl ) {
     $total = (int) ( $doc && ! empty( $doc['pages'] ) ? $doc['pages'] : $pages );
+    $set   = $is_rtl ? $real_rtl : $real_ltr;
+    $ratio = $set ? ( 'arabic' === $set ? '0.667' : '0.7776' ) : '0.88';
+    $page  = function ( $n ) use ( $set, $page_img, $page_html, $is_rtl, $doc ) {
+        return $set ? $page_img( $set, $n ) : $page_html( $n, $is_rtl, $doc );
+    };
     ob_start();
     ?>
-    <div class="tour-book tour-book--<?php echo $is_rtl ? 'rtl' : 'ltr'; ?>" data-tour-target="<?php echo $is_rtl ? 'rtl-book' : 'book'; ?>">
-      <div class="tour-page tour-page--still"><?php echo $page_html( 2, $is_rtl, $doc ); // phpcs:ignore WordPress.Security.EscapeOutput -- built from escaped parts ?></div>
-      <div class="tour-page tour-page--under"><?php echo $page_html( 5, $is_rtl, $doc ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
+    <span class="tour-arrow tour-arrow--l"><?php echo $svg( 'prev' ); // phpcs:ignore WordPress.Security.EscapeOutput -- static icon ?></span>
+    <span class="tour-arrow tour-arrow--r"><?php echo $svg( 'next' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+    <div class="tour-book tour-book--<?php echo $is_rtl ? 'rtl' : 'ltr'; ?><?php echo $set ? ' tour-book--real' : ''; ?>" style="--page-ratio:<?php echo esc_attr( $ratio ); ?>" data-tour-target="<?php echo $is_rtl ? 'rtl-book' : 'book'; ?>">
+      <div class="tour-page tour-page--still"><?php echo $page( 2 ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped parts ?></div>
+      <div class="tour-page tour-page--under"><?php echo $page( 5 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
       <div class="tour-leaf">
-        <div class="tour-leaf__face tour-leaf__front"><?php echo $page_html( 3, $is_rtl, $doc ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
-        <div class="tour-leaf__face tour-leaf__back"><?php echo $page_html( 4, $is_rtl, $doc ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
+        <div class="tour-leaf__face tour-leaf__front"><?php echo $page( 3 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
+        <div class="tour-leaf__face tour-leaf__back"><?php echo $page( 4 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
       </div>
       <i class="tour-spine" aria-hidden="true"></i>
     </div>
-    <div class="tour-toolbar" data-tour-target="<?php echo $is_rtl ? 'rtl-toolbar' : 'toolbar'; ?>">
-      <span class="tour-tb" title="Zoom">⌕</span><span class="tour-tb" title="Contents">☰</span><span class="tour-tb">‹</span>
-      <span class="tour-count" data-count data-total="<?php echo (int) $total; ?>">2–3 / <?php echo (int) $total; ?></span>
-      <span class="tour-tb">›</span><span class="tour-tb" title="Full screen">⤢</span><span class="tour-tb tour-tb--dl" title="Download">⤓</span>
+    <div class="tour-chrome2" data-tour-target="<?php echo $is_rtl ? 'rtl-toolbar' : 'toolbar'; ?>" data-total="<?php echo (int) $total; ?>">
+      <div class="tour-slider"><i class="tour-slider__knob"></i></div>
+      <div class="tour-fx">
+        <span class="tour-fx-b" data-fx="first"><?php echo $svg( 'first' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+        <span class="tour-fx-b" data-fx="prev"><?php echo $svg( 'prev' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+        <span class="tour-fx-page"><b data-page>2</b><i><?php echo $svg( 'up' ) . $svg( 'down' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></i></span>
+        <span class="tour-fx-total">/ <?php echo (int) $total; ?></span>
+        <span class="tour-fx-b"><?php echo $svg( 'next' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+        <span class="tour-fx-b"><?php echo $svg( 'last' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+        <i class="tour-fx-sep"></i>
+        <span class="tour-fx-b is-on"><?php echo $svg( 'side' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+        <span class="tour-fx-b" data-fx="grid"><?php echo $svg( 'grid' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+        <span class="tour-fx-zoom"><?php echo $svg( 'search' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>100%<?php echo $svg( 'chev' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+        <span class="tour-fx-b"><?php echo $svg( 'sun' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+        <span class="tour-fx-b"><?php echo $svg( 'expand' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+        <span class="tour-fx-b" data-fx="more"><?php echo $svg( 'more' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+          <span class="tour-fx-menu">
+            <span><?php echo $svg( 'play' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>Autoplay</span>
+            <span><?php echo $svg( 'share' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>Share</span>
+            <span class="tour-fx-lockable"><?php echo $svg( 'print' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>Print<em><?php echo $svg( 'lock' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></em></span>
+            <span class="tour-fx-lockable"><?php echo $svg( 'dl' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>Download<em><?php echo $svg( 'lock' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></em></span>
+          </span>
+        </span>
+      </div>
     </div>
+    <?php if ( ! $is_rtl ) : ?>
+      <aside class="tour-rail">
+        <div class="tour-rail__head"><b>Thumbnails</b><?php echo $svg( 'close' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
+        <div class="tour-rail__grid">
+          <?php for ( $n = 1; $n <= 6; $n++ ) : ?>
+            <span class="tour-rail__t<?php echo ( 4 === $n || 5 === $n ) ? ' is-cur' : ''; ?>"><?php echo $set ? $page_img( $set, $n ) : '<i></i>'; // phpcs:ignore WordPress.Security.EscapeOutput ?><small><?php echo (int) $n; ?></small></span>
+          <?php endfor; ?>
+        </div>
+      </aside>
+    <?php endif; ?>
     <?php
     return ob_get_clean();
 };
@@ -226,12 +297,18 @@ $book = function ( $doc, $is_rtl ) use ( $page_html, $pages ) {
                   <span class="tour-drop__file"><b>▣</b> <?php echo esc_html( $file ); ?> <small><?php echo esc_html( $size_mb ); ?> · <?php echo (int) $pages; ?> pages</small><em>✓</em></span>
                 </div>
                 <div class="tour-coverpick" data-tour-target="covers">
-                  <div class="tour-coverbig"><?php echo $cover( $featured, 'tour-cover--big' ); // phpcs:ignore WordPress.Security.EscapeOutput ?><span class="tour-coverbig__alt"></span><small>Book Cover</small></div>
+                  <div class="tour-coverbig"><?php echo $cover( $featured, 'tour-cover--big' ); // phpcs:ignore WordPress.Security.EscapeOutput ?><span class="tour-coverbig__alt"><?php echo $real_ltr ? $page_img( $real_ltr, 3 ) : ''; // phpcs:ignore WordPress.Security.EscapeOutput ?></span><small>Book Cover</small></div>
                   <div class="tour-thumbs">
-                    <span class="tour-thumb is-sel"><?php echo $cover( $featured ); // phpcs:ignore WordPress.Security.EscapeOutput ?><small>Page 1</small></span>
-                    <span class="tour-thumb tour-thumb--text"><i></i><small>Page 2</small></span>
-                    <span class="tour-thumb tour-thumb--photo"><i></i><small>Page 3</small></span>
-                    <span class="tour-thumb tour-thumb--text"><i></i><small>Page 4</small></span>
+                    <?php if ( $real_ltr ) : ?>
+                      <?php for ( $n = 1; $n <= 4; $n++ ) : ?>
+                        <span class="tour-thumb tour-thumb--real<?php echo 1 === $n ? ' is-sel' : ''; ?>"><?php echo $page_img( $real_ltr, $n ); // phpcs:ignore WordPress.Security.EscapeOutput ?><small>Page <?php echo (int) $n; ?></small></span>
+                      <?php endfor; ?>
+                    <?php else : ?>
+                      <span class="tour-thumb is-sel"><?php echo $cover( $featured ); // phpcs:ignore WordPress.Security.EscapeOutput ?><small>Page 1</small></span>
+                      <span class="tour-thumb tour-thumb--text"><i></i><small>Page 2</small></span>
+                      <span class="tour-thumb tour-thumb--photo"><i></i><small>Page 3</small></span>
+                      <span class="tour-thumb tour-thumb--text"><i></i><small>Page 4</small></span>
+                    <?php endif; ?>
                   </div>
                 </div>
                 <div class="tour-code" data-tour-target="code">

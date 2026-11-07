@@ -40,8 +40,14 @@
 
   /* ---- per-step state, applied before the spotlight is measured ---- */
   function setCount(book, spread) {
-    var c = book && book.parentNode.querySelector('[data-count]');
-    if (c) c.textContent = spread + ' / ' + c.getAttribute('data-total');
+    var stage = book && book.closest('.tour-stage');
+    var chrome = stage && stage.querySelector('.tour-chrome2');
+    if (!chrome) return;
+    var n = parseInt(spread, 10) || 2, total = parseInt(chrome.getAttribute('data-total'), 10) || 10;
+    chrome.querySelector('[data-page]').textContent = n;
+    chrome.style.setProperty('--progress', Math.min(100, Math.max(0, (n - 1) / Math.max(1, total - 1) * 100)) + '%');
+    $$('[data-fx="first"],[data-fx="prev"]', chrome).forEach(function (b) { b.classList.toggle('is-off', n <= 1); });
+    if (book.offsetWidth) stage.style.setProperty('--chrome-w', book.offsetWidth + 'px');
   }
   function setState(id) {
     var drop = $('.tour-drop'), pick = $('.tour-coverpick'), copy = $('.tour-copy');
@@ -61,6 +67,8 @@
     if (book) { book.classList.toggle('is-flipped', flipped); setCount(book, flipped ? '4–5' : '2–3'); }
     if (rtlBook) { rtlBook.classList.remove('is-flipped'); setCount(rtlBook, '2–3'); }
     site.classList.toggle('is-locked', id === 'lock');
+    $$('.tour-stage').forEach(function (st) { st.classList.remove('is-rail'); });
+    $$('[data-fx="grid"],[data-fx="more"]').forEach(function (b) { b.classList.remove('is-on', 'is-open'); });
     site.classList.toggle('is-studio', id === 'studio');
     site.style.removeProperty('--studio-bg');
 
@@ -106,6 +114,12 @@
     } else if (id === 'layouts') {
       var cards = $$('.tour-layout'), k = 0;
       every(function () { k = (k + 1) % cards.length; cards.forEach(function (c, j) { c.classList.toggle('is-sel', j === k); }); }, 950);
+    } else if (id === 'toolbar') {
+      var st = screen('site').querySelector('.tour-stage');
+      later(function () { st.querySelector('[data-fx="grid"]').classList.add('is-on'); }, 700);
+      later(function () { st.classList.add('is-rail'); }, 950);
+    } else if (id === 'lock') {
+      later(function () { var m = screen('site').querySelector('[data-fx="more"]'); m.classList.add('is-on', 'is-open'); }, 1100);
     } else if (id === 'protect') {
       var radios = $$('.tour-radio');
       later(function () { radios.forEach(function (r, j) { r.classList.toggle('is-sel', j === 1); }); }, 1300);
