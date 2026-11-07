@@ -39,7 +39,14 @@ foreach ( $ltr as $item ) {
 if ( ! $featured ) {
     $featured = $ltr ? $ltr[0] : array( 'id' => 215, 'title' => 'Annual Report 2026', 'short' => 'Annual Report', 'cover' => '', 'pages' => 48, 'views' => 128, 'size' => 2400000, 'slug' => 'annual-report' );
 }
-$rtl_doc = $rtl ? $rtl[0] : null;
+// The RTL pages carry Arabic text, so prefer a book whose title is Arabic.
+$rtl_doc = null;
+foreach ( $rtl as $item ) {
+    if ( preg_match( '/\p{Arabic}/u', $item['title'] ) ) { $rtl_doc = $item; break; }
+}
+if ( ! $rtl_doc && $rtl ) {
+    $rtl_doc = $rtl[0];
+}
 $size_mb = $featured['size'] ? number_format_i18n( $featured['size'] / 1048576, 1 ) . ' MB' : '2.4 MB';
 $file    = $featured['slug'] . '.pdf';
 $code    = '[pdfev_embed_viewer id="' . (int) $featured['id'] . '"]';
