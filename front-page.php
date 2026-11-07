@@ -434,7 +434,7 @@ $contact_url  = 'https://wa.me/8801521255463?text=' . rawurlencode( 'Hi, I need 
     <div class="price-card price-card--lifetime reveal">
       <div class="price-top"><span class="price-name">Lifetime</span><span class="price-badge">Pay once</span></div>
       <div class="price-value"><strong>$79</strong><span>/ one-time</span></div>
-      <p class="price-sites">Unlimited domains</p>
+      <p class="price-sites">1 domain</p>
       <p class="price-desc">One payment for every site you run, now and later.</p>
       <ul class="price-features">
         <li>✓&nbsp; Everything in Free</li>
