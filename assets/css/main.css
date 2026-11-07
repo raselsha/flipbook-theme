@@ -750,11 +750,14 @@ code{font-family:var(--font-mono);font-size:0.88em;}
 .content-page{padding:var(--sp-2xl) var(--gutter);min-height:60vh;}
 .content-page .entry{max-width:none;padding-inline:0;}
 .content-page .entry h1{margin-bottom:var(--sp-lg);font-size:clamp(2.2rem,4.4vw,3.6rem);}
-.content-page .entry > p{max-width:72ch;margin-bottom:var(--sp-md);color:var(--ink-2);}
-/* Demo pages: one archive per category, each under its own heading. */
-.content-page .entry > h2{margin:72px 0 6px;padding-top:28px;border-top:1px solid var(--rule);font-size:clamp(1.6rem,2.6vw,2.2rem);}
+.content-page :is(.entry, .demo-rtl) > p{max-width:72ch;margin-bottom:var(--sp-md);color:var(--ink-2);}
+/* Demo pages: one archive per category, each under its own heading.
+   Right-to-left categories sit in a .demo-rtl wrapper (dir="rtl"), so the
+   heading, the subtitle and the books all start from the right. */
+.content-page :is(.entry, .demo-rtl) > h2{margin:72px 0 6px;padding-top:28px;border-top:1px solid var(--rule);font-size:clamp(1.6rem,2.6vw,2.2rem);}
 .content-page .entry > h2:first-of-type{margin-top:8px;padding-top:0;border-top:0;}
-.content-page .entry > h2 + p{margin-bottom:20px;font-family:var(--font-mono);font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);}
+.content-page :is(.entry, .demo-rtl) > h2 + p{margin-bottom:20px;font-family:var(--font-mono);font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);}
+.content-page .demo-rtl > h2 + p [lang]{font-size:1.15em;letter-spacing:0;text-transform:none;}
 .content-page .entry a:not(.btn){color:var(--accent-text);text-decoration:underline;text-underline-offset:3px;}
 
 /* ===== Single PDF page (template/single.php) ===== */
