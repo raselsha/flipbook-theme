@@ -155,7 +155,7 @@ $contact_url  = 'https://wa.me/8801521255463?text=' . rawurlencode( 'Hi, I need 
     <div class="letter-sign">Shahadat Hossain</div>
     <div class="letter-person">
       <span class="avatar" aria-hidden="true">SH</span>
-      <div><strong>Shahadat Hossain</strong><span>Maker, Lieusoft</span></div>
+      <div><strong>Shahadat Hossain</strong><span>Founder, Lieusoft</span></div>
     </div>
     <footer class="letter-foot">
       <div class="letter-checks"><span>✓ live in 5 minutes</span><span>✓ free forever</span><span>✓ no account needed</span></div>
