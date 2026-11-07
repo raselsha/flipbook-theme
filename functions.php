@@ -31,18 +31,20 @@ add_action( 'wp_enqueue_scripts', 'flipbook_theme_assets' );
  */
 function flipbook_theme_site_icon_url( $url, $size ) {
     $base = get_template_directory_uri() . '/assets/img/';
+    // ?ver busts the browser's long-lived favicon cache when the icon changes.
+    $ver  = '?ver=' . rawurlencode( wp_get_theme()->get( 'Version' ) );
     if ( 180 === (int) $size ) {
-        return $base . 'apple-touch-icon.png';
+        return $base . 'apple-touch-icon.png' . $ver;
     }
     if ( $size <= 32 ) {
-        return $base . 'favicon-32.png';
+        return $base . 'favicon-32.png' . $ver;
     }
-    return $size <= 192 ? $base . 'favicon-192.png' : $base . 'favicon-270.png';
+    return ( $size <= 192 ? $base . 'favicon-192.png' : $base . 'favicon-270.png' ) . $ver;
 }
 add_filter( 'get_site_icon_url', 'flipbook_theme_site_icon_url', 10, 2 );
 
 function flipbook_theme_svg_favicon() {
-    printf( '<link rel="icon" href="%s" type="image/svg+xml" />' . "\n", esc_url( get_template_directory_uri() . '/assets/img/favicon.svg' ) );
+    printf( '<link rel="icon" href="%s" type="image/svg+xml" />' . "\n", esc_url( get_template_directory_uri() . '/assets/img/favicon.svg?ver=' . rawurlencode( wp_get_theme()->get( 'Version' ) ) ) );
 }
 add_action( 'wp_head', 'flipbook_theme_svg_favicon', 98 );
 
