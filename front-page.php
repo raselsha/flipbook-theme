@@ -110,34 +110,144 @@ $contact_url  = 'https://wa.me/8801521255463?text=' . rawurlencode( 'Hi, I need 
   <h2 class="section-title">The flipbook plugin built for WordPress</h2>
   <p class="section-lede">Nothing extra, nothing missing. Every feature your readers expect, managed from the WordPress admin you already know.</p>
 
-  <div class="feature-split reveal">
-    <ol class="feature-list">
-      <li><span class="num">01</span><div><h3>Realistic page-turn</h3><p>A physics-based curl that feels like turning a real page, so readers stay immersed.</p></div></li>
-      <li><span class="num">02</span><div><h3>One-shortcode embed</h3><p>Upload a PDF, drop <code>[pdfev_embed_viewer]</code> anywhere, and it's live. No conversion step.</p></div></li>
-      <li><span class="num">03</span><div><h3>Four archive layouts</h3><p>List, Grid, Newsletter and Ebook shortcodes for browsing a whole library.</p></div></li>
-      <li><span class="num">04</span><div><h3>Read &amp; download counters</h3><p>Every document counts its own views and downloads automatically.</p></div></li>
-      <li><span class="num">05</span><div><h3>Elementor widgets</h3><p>Drag-and-drop Archive View and Single View widgets with every shortcode option.</p></div></li>
-      <li><span class="num">06</span><div><h3>Drag-and-drop ordering</h3><p>Reorder your library right from the admin list, not by upload date.</p></div></li>
+  <?php
+  // Real covers/counts for the panels (falls back to drawn stand-ins).
+  $feat_img  = get_template_directory_uri() . '/assets/img/tour/';
+  $feat_book = get_page_by_path( 'concrete-light-and-structure', OBJECT, 'pdfev_embed_viewer' );
+  $feat_docs = get_posts( array( 'post_type' => 'pdfev_embed_viewer', 'post_status' => 'publish', 'numberposts' => 4, 'meta_key' => '_thumbnail_id' ) ); // phpcs:ignore WordPress.DB.SlowDBQuery
+  $feat_cov  = $feat_book ? get_the_post_thumbnail_url( $feat_book, 'medium' ) : '';
+  $feat_read = $feat_book ? (int) get_post_meta( $feat_book->ID, 'pdfev_meta_views_count', true ) : 1284;
+  $feat_dl   = $feat_book ? (int) get_post_meta( $feat_book->ID, 'pdfev_meta_downloads_count', true ) : 342;
+  $feat_id   = $feat_book ? (int) $feat_book->ID : 215;
+  $feat_pg   = function ( $n ) use ( $feat_img ) {
+      return esc_url( $feat_img . 'concrete-0' . (int) $n . '.webp' );
+  };
+  $features  = array(
+      array( 'Realistic page-turn', 'A physics-based curl that feels like turning a real page, so readers stay immersed.', 'Physics', 'Turns like paper' ),
+      array( 'One-shortcode embed', 'Upload a PDF, drop <code>[pdfev_embed_viewer]</code> anywhere, and it\'s live. No conversion step.', 'Published', 'Live, no conversion' ),
+      array( 'Four archive layouts', 'List, Grid, Newsletter and Ebook shortcodes for browsing a whole library.', 'One shortcode', 'Four layouts' ),
+      array( 'Read &amp; download counters', 'Every document counts its own views and downloads automatically.', 'Counted', 'Reads &amp; downloads' ),
+      array( 'Elementor widgets', 'Drag-and-drop Archive View and Single View widgets with every shortcode option.', 'Elementor', '8 widgets' ),
+      array( 'Drag-and-drop ordering', 'Reorder your library right from the admin list, not by upload date.', 'Saved', 'Your order, not upload date' ),
+  );
+  ?>
+  <div class="feature-track" data-feature-track>
+  <div class="feature-split reveal" data-features>
+    <ol class="feature-list" role="tablist" aria-label="Features">
+      <?php foreach ( $features as $i => $f ) : ?>
+        <li role="tab" tabindex="<?php echo 0 === $i ? '0' : '-1'; ?>" aria-selected="<?php echo 0 === $i ? 'true' : 'false'; ?>" class="<?php echo 0 === $i ? 'is-active' : ''; ?>" data-i="<?php echo (int) $i; ?>" data-badge-small="<?php echo esc_attr( $f[2] ); ?>" data-badge="<?php echo esc_attr( wp_strip_all_tags( html_entity_decode( $f[3] ) ) ); ?>">
+          <span class="num"><?php echo esc_html( sprintf( '%02d', $i + 1 ) ); ?></span>
+          <div><h3><?php echo wp_kses_post( $f[0] ); ?></h3><p><?php echo wp_kses_post( $f[1] ); ?></p></div>
+          <i class="feature-prog" aria-hidden="true"></i>
+        </li>
+      <?php endforeach; ?>
     </ol>
 
     <div class="scene scene--violet feature-scene">
       <div class="scene-card">
-        <span class="flow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg></span>
-        <span class="flow-line" aria-hidden="true"></span>
-        <code class="flow-code">[pdfev_embed_viewer id="215"]</code>
-        <span class="flow-branch" aria-hidden="true"></span>
-        <div class="flow-layouts">
-          <a href="<?php echo esc_url( $demo_grid_url ); ?>"><span class="ico ico--grid" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Grid</a>
-          <a href="<?php echo esc_url( $demo_list_url ); ?>"><span class="ico ico--list" aria-hidden="true"><i></i><i></i><i></i><i></i></span>List</a>
-          <a class="is-active" href="<?php echo esc_url( $demo_ebook_url ); ?>"><span class="ico ico--ebook" aria-hidden="true"><i></i><i></i></span>Ebook</a>
-          <a href="<?php echo esc_url( $demo_newsletter_url ); ?>"><span class="ico ico--news" aria-hidden="true"><i></i><i></i><i></i></span>Newsletter</a>
+
+        <!-- 01 Page-turn: real pages, a leaf turning back and forth -->
+        <div class="fpanel is-on" data-i="0" aria-hidden="false">
+          <div class="fp-book">
+            <img class="fp-pg fp-pg--still" src="<?php echo $feat_pg( 2 ); ?>" alt="" loading="lazy">
+            <img class="fp-pg fp-pg--under" src="<?php echo $feat_pg( 5 ); ?>" alt="" loading="lazy">
+            <span class="fp-leaf"><img class="fp-leaf__front" src="<?php echo $feat_pg( 3 ); ?>" alt="" loading="lazy"><img class="fp-leaf__back" src="<?php echo $feat_pg( 4 ); ?>" alt="" loading="lazy"></span>
+            <i class="fp-spine"></i>
+          </div>
+          <span class="fp-caption">Drag a corner, or tap the arrows</span>
         </div>
+
+        <!-- 02 Shortcode: typed into a page, published -->
+        <div class="fpanel" data-i="1" aria-hidden="true">
+          <div class="fp-editor">
+            <div class="fp-editor__bar"><span class="fp-dots"><i></i><i></i><i></i></span><span>Edit Page</span><b>Publish</b></div>
+            <div class="fp-editor__body">
+              <span class="fp-h">Spring issue</span>
+              <span class="fp-lines"><i></i><i style="width:78%"></i></span>
+              <div class="fp-block"><small>Shortcode</small><code><span class="fp-type">[pdfev_embed_viewer id="<?php echo (int) $feat_id; ?>"]</span></code></div>
+            </div>
+          </div>
+          <span class="fp-down" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span>
+          <div class="fp-live">
+            <span class="fp-live__url">yoursite.com/spring-issue</span>
+            <div class="fp-live__book"><img src="<?php echo $feat_pg( 2 ); ?>" alt="" loading="lazy"><img src="<?php echo $feat_pg( 3 ); ?>" alt="" loading="lazy"></div>
+          </div>
+        </div>
+
+        <!-- 03 Layouts: one shortcode, four ways to browse -->
+        <div class="fpanel" data-i="2" aria-hidden="true">
+          <span class="flow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg></span>
+          <span class="flow-line" aria-hidden="true"></span>
+          <code class="flow-code">[pdfev_viewer template="grid"]</code>
+          <span class="flow-branch" aria-hidden="true"></span>
+          <div class="flow-layouts fp-layouts">
+            <a href="<?php echo esc_url( $demo_grid_url ); ?>"><span class="ico ico--grid" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Grid</a>
+            <a href="<?php echo esc_url( $demo_list_url ); ?>"><span class="ico ico--list" aria-hidden="true"><i></i><i></i><i></i><i></i></span>List</a>
+            <a href="<?php echo esc_url( $demo_ebook_url ); ?>"><span class="ico ico--ebook" aria-hidden="true"><i></i><i></i></span>Ebook</a>
+            <a href="<?php echo esc_url( $demo_newsletter_url ); ?>"><span class="ico ico--news" aria-hidden="true"><i></i><i></i><i></i></span>Newsletter</a>
+          </div>
+        </div>
+
+        <!-- 04 Counters: real cover, counts climbing -->
+        <div class="fpanel" data-i="3" aria-hidden="true">
+          <div class="fp-stat">
+            <?php if ( $feat_cov ) : ?><img class="fp-stat__cover" src="<?php echo esc_url( $feat_cov ); ?>" alt="" loading="lazy"><?php else : ?><span class="fp-stat__cover"></span><?php endif; ?>
+            <div class="fp-stat__body">
+              <b><?php echo $feat_book ? esc_html( get_the_title( $feat_book ) ) : 'Annual Report 2026'; ?></b>
+              <small>Magazine · counted automatically</small>
+              <div class="fp-stat__nums">
+                <span><svg viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><b data-count-to="<?php echo (int) $feat_read; ?>">0</b> reads</span>
+                <span><svg viewBox="0 0 24 24"><path d="M12 3v12M7 11l5 5 5-5M5 21h14"/></svg><b data-count-to="<?php echo (int) $feat_dl; ?>">0</b> downloads</span>
+              </div>
+              <div class="fp-bars" aria-hidden="true"><i style="--h:34%"></i><i style="--h:52%"></i><i style="--h:41%"></i><i style="--h:66%"></i><i style="--h:58%"></i><i style="--h:80%"></i><i style="--h:94%"></i></div>
+              <small class="fp-bars__k">Reads, last 7 days</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- 05 Elementor: drag a widget onto the canvas -->
+        <div class="fpanel" data-i="4" aria-hidden="true">
+          <div class="fp-el">
+            <div class="fp-el__panel">
+              <span class="fp-el__search">Search widget…</span>
+              <div class="fp-el__grid">
+                <?php foreach ( array( 'PDF Archive View', 'PDF Single View', 'PDF Title', 'PDF Cover', 'PDF Details', 'PDF Download' ) as $k => $w ) : ?>
+                  <span class="fp-el__w<?php echo 1 === $k ? ' is-drag' : ''; ?>"><i></i><?php echo esc_html( $w ); ?></span>
+                <?php endforeach; ?>
+              </div>
+            </div>
+            <div class="fp-el__canvas">
+              <span class="fp-el__drop">Drag widget here</span>
+              <div class="fp-el__placed"><img src="<?php echo $feat_pg( 2 ); ?>" alt="" loading="lazy"><img src="<?php echo $feat_pg( 3 ); ?>" alt="" loading="lazy"></div>
+            </div>
+            <span class="fp-el__ghost"><i></i>PDF Single View</span>
+          </div>
+        </div>
+
+        <!-- 06 Ordering: a row lifted and moved to the top -->
+        <div class="fpanel" data-i="5" aria-hidden="true">
+          <div class="fp-order">
+            <div class="fp-order__head"><b>All PDF</b><small>Drag rows to reorder</small></div>
+            <div class="fp-order__rows">
+              <?php foreach ( array_slice( $feat_docs, 0, 4 ) as $k => $d ) : ?>
+                <div class="fp-row fp-row--<?php echo (int) $k; ?>">
+                  <span class="fp-row__h" aria-hidden="true">⋮⋮</span>
+                  <img src="<?php echo esc_url( get_the_post_thumbnail_url( $d, 'thumbnail' ) ); ?>" alt="" loading="lazy">
+                  <b><?php echo esc_html( get_the_title( $d ) ); ?></b>
+                  <small><?php echo (int) get_post_meta( $d->ID, 'pdfev_meta_total_pages', true ); ?> pages</small>
+                </div>
+              <?php endforeach; ?>
+            </div>
+          </div>
+        </div>
+
       </div>
       <div class="scene-badge">
         <span class="badge-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>
-        <div><small>Published</small><strong>Live, no conversion</strong></div>
+        <div><small data-fbadge-small>Physics</small><strong data-fbadge>Turns like paper</strong></div>
       </div>
     </div>
+  </div>
   </div>
 </section>
 

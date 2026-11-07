@@ -23,6 +23,8 @@ function flipbook_theme_assets() {
     if ( is_front_page() ) {
         wp_enqueue_style( 'flipbook-tour', get_template_directory_uri() . '/assets/css/tour.css', array( 'flipbook-main' ), $ver );
         wp_enqueue_script( 'flipbook-tour', get_template_directory_uri() . '/assets/js/tour.js', array(), $ver, true );
+        wp_enqueue_style( 'flipbook-features', get_template_directory_uri() . '/assets/css/features.css', array( 'flipbook-main' ), $ver );
+        wp_enqueue_script( 'flipbook-features', get_template_directory_uri() . '/assets/js/features.js', array(), $ver, true );
     }
 }
 add_action( 'wp_enqueue_scripts', 'flipbook_theme_assets' );
