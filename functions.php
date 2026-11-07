@@ -20,6 +20,10 @@ function flipbook_theme_assets() {
     wp_enqueue_style( 'flipbook-fonts', get_template_directory_uri() . '/assets/css/fonts.css', array(), $ver );
     wp_enqueue_style( 'flipbook-main', get_template_directory_uri() . '/assets/css/main.css', array( 'flipbook-fonts' ), $ver );
     wp_enqueue_script( 'flipbook-main', get_template_directory_uri() . '/assets/js/main.js', array(), $ver, true );
+    if ( is_front_page() ) {
+        wp_enqueue_style( 'flipbook-tour', get_template_directory_uri() . '/assets/css/tour.css', array( 'flipbook-main' ), $ver );
+        wp_enqueue_script( 'flipbook-tour', get_template_directory_uri() . '/assets/js/tour.js', array(), $ver, true );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'flipbook_theme_assets' );
 

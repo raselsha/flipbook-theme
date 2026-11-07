@@ -51,67 +51,7 @@ $contact_url  = 'https://wa.me/8801521255463?text=' . rawurlencode( 'Hi, I need 
     <p class="hero-note">Free forever · WordPress 6.0+ · No coding required</p>
   </div>
 
-  <!-- Decorative product frame — a CSS mock, not the real viewer (that's #live-demo below). -->
-  <div class="product reveal">
-    <div class="product-bar">
-      <span class="product-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-      <span class="product-url">yoursite.com/annual-report</span>
-    </div>
-    <div class="product-body">
-      <div class="product-rail">
-        <div class="rail-label">PDF library</div>
-        <div class="rail-item is-active"><strong>Annual Report</strong><span>48 pages · flipbook</span></div>
-        <div class="rail-item"><strong>Spring Catalogue</strong><span>32 pages · grid</span></div>
-        <div class="rail-item"><strong>Product Manual</strong><span>96 pages · list</span></div>
-        <div class="rail-item"><strong>Monthly Bulletin</strong><span>12 pages · newsletter</span></div>
-        <div class="rail-item"><strong>Field Guide</strong><span>64 pages · ebook</span></div>
-      </div>
-
-      <div class="product-stage">
-        <a class="mock-book" href="<?php echo esc_url( $demo_flipbook_url ); ?>" aria-label="Open the live flipbook demo">
-          <span class="mock-page mock-page--left">
-            <span class="mock-kicker">Section 02</span>
-            <span class="mock-title">A year in<br><em>review</em></span>
-            <span class="mock-photo"></span>
-            <span class="mock-lines"><i style="width:92%"></i><i style="width:78%"></i><i style="width:85%"></i></span>
-          </span>
-          <span class="mock-page mock-page--right">
-            <span class="mock-kicker mock-kicker--right">Page 15</span>
-            <span class="mock-lines"><i></i><i style="width:88%"></i><i style="width:95%"></i><i style="width:70%"></i></span>
-            <span class="mock-stats"><span><b>Charts</b><small>render crisp</small></span><span><b>Zoom</b><small>stays sharp</small></span></span>
-            <span class="mock-lines"><i style="width:90%"></i><i style="width:60%"></i></span>
-            <span class="mock-curl"></span>
-          </span>
-          <span class="mock-highlight" aria-hidden="true"></span>
-          <span class="mock-pin" aria-hidden="true"></span>
-        </a>
-        <div class="mock-tip">
-          <strong>Drag a corner to turn</strong>
-          <span>The page curls with your cursor — on desktop and touch.</span>
-        </div>
-        <div class="mock-toolbar" aria-hidden="true">
-          <span class="tb-btn"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></span>
-          <span class="tb-count">14–15 / 48</span>
-          <span class="tb-btn"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></span>
-          <span class="tb-sep"></span>
-          <span class="tb-btn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg></span>
-          <span class="tb-btn"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></span>
-          <span class="tb-btn"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></span>
-        </div>
-      </div>
-
-      <div class="product-panel">
-        <div class="rail-label">Shortcode</div>
-        <code class="panel-code">[pdfev_embed_viewer<br>&nbsp;id="<b>215</b>"<br>&nbsp;show_author="<b>yes</b>"]</code>
-        <div class="rail-label">Display</div>
-        <div class="panel-row"><span>Layout</span><span>Double spread</span></div>
-        <div class="panel-row"><span>View counter</span><span>On</span></div>
-        <div class="panel-row"><span>Download counter</span><span>On</span></div>
-        <div class="panel-row"><span>Download button</span><span class="toggle" aria-hidden="true"><i></i></span></div>
-        <div class="panel-row"><span>Elementor widget</span><span>Ready</span></div>
-      </div>
-    </div>
-  </div>
+  <?php get_template_part( 'template-parts/product-tour' ); ?>
 </section>
 
 <!-- ===== Trust strip — real WordPress.org numbers (Nov 2026). ===== -->
