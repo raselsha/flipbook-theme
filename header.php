@@ -57,7 +57,7 @@ $flipbook_theme_demo_subs = array(
           <?php endforeach; ?>
         </div>
       </div>
-      <a class="btn btn--primary btn--sm" href="https://downloads.wordpress.org/plugin/pdf-embed-viewer.zip">Download free <span class="kbd" aria-hidden="true">D</span></a>
+      <a class="btn btn--primary btn--sm" href="https://lieusoft.com/pdf-embed-viewer/#pricing">Buy now <span aria-hidden="true">&rarr;</span></a>
     </nav>
   </div>
 </header>
