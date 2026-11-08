@@ -23,6 +23,10 @@ $demo_ebook_url      = $demo_ebook ? get_permalink( $demo_ebook ) : '#';
 $download_url = 'https://downloads.wordpress.org/plugin/pdf-embed-viewer.zip';
 $reviews_url  = 'https://wordpress.org/support/plugin/pdf-embed-viewer/reviews/';
 $purchase_url = 'https://lieusoft.com/pdf-embed-viewer/#pricing';
+// Each plan button drops that plan straight into the lieusoft.com cart and opens checkout (EDD download 390, price IDs 1/2/3).
+$checkout_url = function ( $price_id ) {
+    return 'https://lieusoft.com/checkout/?edd_action=add_to_cart&download_id=390&edd_options%5Bprice_id%5D=' . (int) $price_id;
+};
 $contact_url  = 'https://wa.me/8801521255463?text=' . rawurlencode( 'Hi, I need help with Flipbook PDF.' );
 ?>
 <main class="frame">
@@ -464,7 +468,7 @@ $contact_url  = 'https://wa.me/8801521255463?text=' . rawurlencode( 'Hi, I need 
         <li>✓&nbsp; Download button control</li>
         <li>✓&nbsp; 1 year of updates &amp; support</li>
       </ul>
-      <a class="btn btn--outline btn--block" href="<?php echo esc_url( $purchase_url ); ?>">Buy on Lieusoft</a>
+      <a class="btn btn--outline btn--block" href="<?php echo esc_url( $checkout_url( 1 ) ); ?>" rel="nofollow">Buy Pro Single</a>
     </div>
     <div class="price-card price-card--lifetime reveal">
       <div class="price-top"><span class="price-name">Lifetime</span><span class="price-badge">Pay once</span></div>
@@ -479,7 +483,7 @@ $contact_url  = 'https://wa.me/8801521255463?text=' . rawurlencode( 'Hi, I need 
         <li>✓&nbsp; Download button control</li>
         <li>✓&nbsp; Lifetime updates &amp; support</li>
       </ul>
-      <a class="btn btn--primary btn--block" href="<?php echo esc_url( $purchase_url ); ?>">Buy on Lieusoft</a>
+      <a class="btn btn--primary btn--block" href="<?php echo esc_url( $checkout_url( 3 ) ); ?>" rel="nofollow">Buy Lifetime</a>
     </div>
     <div class="price-card price-card--dark reveal">
       <div class="price-top"><span class="price-name">Pro 10</span><span class="price-badge">Best value</span></div>
@@ -494,7 +498,7 @@ $contact_url  = 'https://wa.me/8801521255463?text=' . rawurlencode( 'Hi, I need 
         <li>✓&nbsp; Download button control</li>
         <li>✓&nbsp; 1 year of updates &amp; support</li>
       </ul>
-      <a class="btn btn--light btn--block" href="<?php echo esc_url( $purchase_url ); ?>">Buy on Lieusoft</a>
+      <a class="btn btn--light btn--block" href="<?php echo esc_url( $checkout_url( 2 ) ); ?>" rel="nofollow">Buy Pro 10</a>
     </div>
   </div>
   <p class="pricing-note">Yearly plans renew each year · Lifetime is a one-time payment · Prices in USD · Checkout on <a href="<?php echo esc_url( $purchase_url ); ?>">lieusoft.com</a> · <a href="#compare">Compare plans</a> · <a href="#faq">FAQ</a></p>
