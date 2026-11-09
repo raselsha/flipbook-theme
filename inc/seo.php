@@ -40,6 +40,11 @@ function flipbook_theme_noindex_slugs() {
 }
 
 function flipbook_theme_is_noindexed() {
+    // This site has no blog: WordPress's sample post and the blog archives
+    // (Uncategorized etc.) are thin pages that shouldn't reach search results.
+    if ( is_singular( 'post' ) || is_category() || is_tag() || is_author() || is_date() ) {
+        return true;
+    }
     if ( ! is_page() ) {
         return false;
     }
@@ -163,8 +168,14 @@ add_filter( 'wp_sitemaps_add_provider', function ( $provider, $name ) {
 }, 10, 2 );
 
 add_filter( 'wp_sitemaps_taxonomies', function ( $taxonomies ) {
-    unset( $taxonomies['pdfev_author'], $taxonomies['pdfev_publisher'], $taxonomies['post_tag'] );
+    unset( $taxonomies['pdfev_author'], $taxonomies['pdfev_publisher'], $taxonomies['post_tag'], $taxonomies['category'] );
     return $taxonomies;
+} );
+
+// No blog here: keep the sample post type out of the sitemap too.
+add_filter( 'wp_sitemaps_post_types', function ( $post_types ) {
+    unset( $post_types['post'] );
+    return $post_types;
 } );
 
 add_filter( 'wp_sitemaps_posts_query_args', function ( $args, $post_type ) {
